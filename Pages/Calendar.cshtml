@@ -1,0 +1,30 @@
+﻿@page
+@model hippolidays.Pages.CalendarModel
+@{
+}
+
+@functions{
+    private int GetBlock(int x, int y)
+    {
+        return (x - 1) * 7 + y;
+    }
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">
+        Calendar
+    </h1>
+
+    <div class="container">
+        @for (var x = 1; x <= Model.BlocksToShow / 7; x++)
+        {
+            <div class="row">
+                @for (var y = 1; y <= 7; y++)
+                {
+                    <div class="col-sm">Block @GetBlock(x,y)</div>
+                }
+            </div>
+        }
+    </div>
+</div>
