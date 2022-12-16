@@ -1,0 +1,20 @@
+﻿body {
+}
+
+.block {
+    height: 125px;
+    padding: 0;
+}
+
+.not-in-month {
+    background: rgba(236,237,237);
+    opacity: 30%;
+}
+
+.today {
+    background: rgba(186,211,217,0.5);
+}
+
+.thing {
+    height: 24px;
+}

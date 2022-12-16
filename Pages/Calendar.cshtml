@@ -8,11 +8,45 @@
     {
         return (x - 1) * 7 + y;
     }
+
+    private string GetBlockClasses(int block)
+    {
+        string classes = "block";
+
+        if (block == Model.BlockOfToday)
+        {
+            classes += " today";
+        }
+
+        if (block < Model.BlockOfFirstOfMonth || block > Model.BlockOfLastOfMonth)
+        {
+            classes += " not-in-month";
+        }
+
+        return classes;
+    }
+
+    private string GetDate(int block)
+    {
+        int date = block - Model.BlockOfFirstOfMonth + 1;
+
+        if (date < 1)
+        {
+            date += Model.LastDateOfPreviousMonth;
+        }
+
+        if (date > Model.LastDateOfCurrentMonth)
+        {
+            date -= Model.LastDateOfCurrentMonth;
+        }
+
+        return date.ToString();
+    }
 }
 
 <div class="text-center">
 
-    <h1 class="display-4">
+    <h1 class="display-4" >
         Calendar
     </h1>
 
@@ -22,7 +56,13 @@
             <div class="row">
                 @for (var y = 1; y <= 7; y++)
                 {
-                    <div class="col-sm">Block @GetBlock(x,y)</div>
+                    <div class="container col-sm @GetBlockClasses(@GetBlock(x,y))">
+                        <div class="h-20">@GetDate(@GetBlock(x,y))</div>
+                        <div class="h-20"></div>
+                        <div class="h-20"></div>
+                        <div class="h-20"></div>
+                        <div class="h-20"></div>
+                    </div>
                 }
             </div>
         }
