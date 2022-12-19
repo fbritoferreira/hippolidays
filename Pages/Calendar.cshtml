@@ -3,21 +3,45 @@
 @{
 }
 
+@functions{
+    private string GetBlockClasses(Dictionary<string, object> date)
+    {
+        string classes = "col-sm block";
+
+        if ((bool)date["is_today"])
+        {
+            classes += " today";
+        }
+
+        if (!(bool)date["is_in_month"])
+        {
+            classes += " not-in-month";
+        }
+
+        return classes;
+    }
+}
+
 <div class="text-center">
 
     <h1 class="display-4">
         Calendar
     </h1>
 
+    <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
+        <button type="button" class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["previous_month"])</button>
+        <button type="button" class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["next_month"])</button>
+    </div>
+
     <div class="container">
-        @foreach (List<Dictionary<string, object>> week in Model.calendarList)
+        @foreach (List<Dictionary<string, object>> week in (List<List<Dictionary<string, object>>>)Model.calendar["data"])
         {
             <div class="row">
                 @foreach (Dictionary<string, object> date in week)
                 {
-                    <div class="col-sm block">@date["id"] @date["date"]</div>
+                    <div class="@GetBlockClasses(date)">@date["date"]</div>
                 }
             </div>
-         }
+        }
     </div>
 </div>

@@ -3,11 +3,19 @@
 
 .container {
     border: 1px solid rgba(132,180,191);
+    margin: 8px;
+}
+
+.btn-toolbar {
+    justify-content: center;
+    padding-bottom: 8px;
+    gap: 8px;
 }
 
 .block {
     height: 13vh;
     padding: 0;
+    border: 1px solid rgba(132,180,191);
 }
 
 .not-in-month {

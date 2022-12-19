@@ -10,19 +10,21 @@ namespace hippolidays.Pages
 {
 	public class CalendarModel : PageModel
     {
-        public List<List<Dictionary<string, object>>> calendarList = new List<List<Dictionary<string, object>>>();
+        public Dictionary<string, object> calendar = new Dictionary<string, object>();
 
         public void OnGet()
         {
-            DateTime today = DateTime.Today;
-            
-            int daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
-            int dayOfFirstOfMonth = (int)today.Date.AddDays(1 - today.Day).DayOfWeek;
-            int dayOfLastOfMonth = (int)today.Date.AddDays(daysInMonth - today.Day).DayOfWeek;            
+            DateTime CurrentMonth = DateTime.Today;
+
+            int daysInMonth = DateTime.DaysInMonth(CurrentMonth.Year, CurrentMonth.Month);
+            int dayOfFirstOfMonth = (int)CurrentMonth.Date.AddDays(1 - CurrentMonth.Day).DayOfWeek;
+            int dayOfLastOfMonth = (int)CurrentMonth.Date.AddDays(daysInMonth - CurrentMonth.Day).DayOfWeek;            
             int totalDays = daysInMonth + dayOfFirstOfMonth + 7 - dayOfLastOfMonth;
 
-            DateTime previousMonth = today.Date.AddMonths(-1);
-            DateTime startDate = previousMonth.Date.AddDays(daysInMonth - today.Day - dayOfFirstOfMonth + 1);
+            DateTime previousMonth = CurrentMonth.Date.AddMonths(-1);
+            DateTime startDate = previousMonth.Date.AddDays(daysInMonth - CurrentMonth.Day - dayOfFirstOfMonth + 1);
+
+            List<List<Dictionary<string, object>>> data = new List<List<Dictionary<string, object>>>();
 
             for (var y = 0; y < totalDays/7; y++)
             {
@@ -32,8 +34,8 @@ namespace hippolidays.Pages
                 {
                     int id = x + y * 7;
                     DateTime date = startDate.AddDays(id);
-                    bool isToday = date == today;
-                    bool isInMonth = date.Month == today.Month;
+                    bool isToday = date == DateTime.Today;
+                    bool isInMonth = date.Month == CurrentMonth.Month;
 
                     Dictionary<string, object> day = new Dictionary<string, object>
                     {
@@ -46,8 +48,13 @@ namespace hippolidays.Pages
                     week.Add(day);
                 }
 
-                this.calendarList.Add(week);
+                data.Add(week);
             }
+
+            this.calendar.Add("data", data);
+            this.calendar.Add("current_month", CurrentMonth);
+            this.calendar.Add("previous_month", CurrentMonth.Date.AddMonths(-1));
+            this.calendar.Add("next_month", CurrentMonth.Date.AddMonths(1));
         }
     }
 }
