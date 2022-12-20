@@ -12,9 +12,14 @@ namespace hippolidays.Pages
     {
         public Dictionary<string, object> calendar = new Dictionary<string, object>();
 
-        public void OnGet()
+        public void OnGet(DateTime? calendar)
         {
             DateTime CurrentMonth = DateTime.Today;
+
+            if (calendar.HasValue)
+            {
+                CurrentMonth = (DateTime)calendar;
+            }
 
             int daysInMonth = DateTime.DaysInMonth(CurrentMonth.Year, CurrentMonth.Month);
             int dayOfFirstOfMonth = (int)CurrentMonth.Date.AddDays(1 - CurrentMonth.Day).DayOfWeek;

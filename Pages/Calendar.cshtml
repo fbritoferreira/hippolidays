@@ -29,8 +29,12 @@
     </h1>
 
     <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
-        <button type="button" class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["previous_month"])</button>
-        <button type="button" class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["next_month"])</button>
+        <a asp-page="/Calendar" asp-route-calendar="@Model.calendar["previous_month"]" method="post">
+            <button class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["previous_month"])</button>
+        </a>
+        <a asp-route-calendar="@Model.calendar["next_month"]" method="post">
+            <button class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["next_month"])</button>
+        </a>
     </div>
 
     <div class="container">
