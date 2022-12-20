@@ -43,7 +43,7 @@
             <div class="row">
                 @foreach (Dictionary<string, object> date in week)
                 {
-                    <div class="@GetBlockClasses(date)">@date["date"]</div>
+                    <div class="@GetBlockClasses(date)">@String.Format("{0:dd-MM-yy}", date["date"])</div>
                 }
             </div>
         }

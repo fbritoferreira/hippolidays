@@ -23,11 +23,13 @@ namespace hippolidays.Pages
 
             int daysInMonth = DateTime.DaysInMonth(CurrentMonth.Year, CurrentMonth.Month);
             int dayOfFirstOfMonth = (int)CurrentMonth.Date.AddDays(1 - CurrentMonth.Day).DayOfWeek;
-            int dayOfLastOfMonth = (int)CurrentMonth.Date.AddDays(daysInMonth - CurrentMonth.Day).DayOfWeek;            
-            int totalDays = daysInMonth + dayOfFirstOfMonth + 7 - dayOfLastOfMonth;
+            dayOfFirstOfMonth = dayOfFirstOfMonth == 0 ? 7 : dayOfFirstOfMonth;
+            int dayOfLastOfMonth = (int)CurrentMonth.Date.AddDays(daysInMonth - CurrentMonth.Day).DayOfWeek;
+            dayOfLastOfMonth = dayOfLastOfMonth == 0 ? 7 : dayOfLastOfMonth;
+            int totalDays = daysInMonth + dayOfFirstOfMonth + 6 - dayOfLastOfMonth;
 
             DateTime previousMonth = CurrentMonth.Date.AddMonths(-1);
-            DateTime startDate = previousMonth.Date.AddDays(daysInMonth - CurrentMonth.Day - dayOfFirstOfMonth + 1);
+            DateTime startDate = CurrentMonth.Date.AddDays(1 - CurrentMonth.Day - dayOfFirstOfMonth + 1);
 
             List<List<Dictionary<string, object>>> data = new List<List<Dictionary<string, object>>>();
 
