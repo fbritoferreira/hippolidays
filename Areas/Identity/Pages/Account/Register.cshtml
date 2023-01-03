@@ -49,6 +49,10 @@
                 </select>
                 <label asp-for="Input.Shift_Pattern">Shift Pattern</label>
             </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.isManager" type="checkbox" value="true">
+                <label asp-for="Input.isManager">Manager</label>
+            </div>
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>

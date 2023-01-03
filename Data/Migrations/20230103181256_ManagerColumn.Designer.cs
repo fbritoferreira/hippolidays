@@ -11,14 +11,14 @@ using hippolidays.Data;
 namespace hippolidays.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221209142913_Extend-IdentityUser-Attributes")]
-    partial class ExtendIdentityUserAttributes
+    [Migration("20230103181256_ManagerColumn")]
+    partial class ManagerColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -160,12 +160,6 @@ namespace hippolidays.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Available_Holiday")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Available_ServiceDays")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -175,6 +169,9 @@ namespace hippolidays.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Holidays")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("LockoutEnabled")
@@ -206,6 +203,12 @@ namespace hippolidays.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Service_Days")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Shift_Pattern")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Team_Name")
                         .HasColumnType("TEXT");
 
@@ -215,6 +218,9 @@ namespace hippolidays.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("isManager")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

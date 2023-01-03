@@ -117,6 +117,9 @@ namespace hippolidays.Areas.Identity.Pages.Account
             [EnumDataType(typeof(Pattern))]
             public Pattern Shift_Pattern { get; set; }
 
+            [Display(Name = "Manager")]
+            public Boolean isManager { get; set; }
+
         }
 
 
@@ -142,6 +145,7 @@ namespace hippolidays.Areas.Identity.Pages.Account
                 user.Holidays = Int32.Parse(Input.Holidays);
                 user.Service_Days = Int32.Parse(Input.Service_Days);
                 user.Shift_Pattern = Input.Shift_Pattern;
+                user.isManager = Input.isManager;
 
                 await _userManager.UpdateAsync(user);
 
