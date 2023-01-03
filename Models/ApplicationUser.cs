@@ -1,4 +1,6 @@
 ﻿using System;
+using hippolidays.Areas.Identity.Pages.Account;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace hippolidays.Models
@@ -10,16 +12,12 @@ namespace hippolidays.Models
 
         public string? Name { get; set; }
 
-        public int Available_Holiday{ get; set; }
+        public int Holidays { get; set; }
 
-        public int Available_ServiceDays { get; set; }
+        public int Service_Days { get; set; }
 
-        enum Shift_Pattern
-
-        {
-            five = 5,
-            seven = 7
-        }
+        [EnumDataType(typeof(Pattern))]
+        public Pattern Shift_Pattern { get; set; }
 
     }
 }
