@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 
 namespace hippolidays.Areas.Identity.Pages.Account
 {
+    [Authorize(Roles = "Manager")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -117,8 +118,9 @@ namespace hippolidays.Areas.Identity.Pages.Account
             [EnumDataType(typeof(Pattern))]
             public Pattern Shift_Pattern { get; set; }
 
-            [Display(Name = "Manager")]
-            public Boolean isManager { get; set; }
+            [Display(Name = "Role")]
+            public string Role { get; set; }
+
 
         }
 
@@ -140,17 +142,19 @@ namespace hippolidays.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+
                 user.Team_Name = Input.Team_Name;
                 user.Name = Input.Name;
                 user.Holidays = Int32.Parse(Input.Holidays);
                 user.Service_Days = Int32.Parse(Input.Service_Days);
                 user.Shift_Pattern = Input.Shift_Pattern;
-                user.isManager = Input.isManager;
+     
 
                 await _userManager.UpdateAsync(user);
+                var roleResult = await _userManager.AddToRoleAsync(user, Input.Role);
 
-
-                if (result.Succeeded)
+                if (result.Succeeded && roleResult.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 

@@ -216,9 +216,6 @@ namespace hippolidays.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("isManager")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")

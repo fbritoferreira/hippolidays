@@ -19,8 +19,6 @@ namespace hippolidays.Models
         [EnumDataType(typeof(Pattern))]
         public Pattern Shift_Pattern { get; set; }
 
-        public bool isManager { get; set; }
-
     }
 }
 

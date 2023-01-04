@@ -11,8 +11,8 @@ using hippolidays.Data;
 namespace hippolidays.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230103181256_ManagerColumn")]
-    partial class ManagerColumn
+    [Migration("20230104010108_IdentityExtended")]
+    partial class IdentityExtended
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -218,9 +218,6 @@ namespace hippolidays.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("isManager")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

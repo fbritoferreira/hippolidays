@@ -50,8 +50,11 @@
                 <label asp-for="Input.Shift_Pattern">Shift Pattern</label>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.isManager" type="checkbox" value="true">
-                <label asp-for="Input.isManager">Manager</label>
+                <select asp-for="Input.Role" class="form-control" aria-required="true">
+                    <option asp-for="Input.Role" value="Manager">Manager</option>
+                    <option asp-for="Input.Role" value="Employee">Employee</option>
+                </select>
+                <label asp-for="Input.Role">Role</label>
             </div>
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
