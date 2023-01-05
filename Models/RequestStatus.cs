@@ -12,7 +12,7 @@ namespace hippolidays.Models
         public int RequestID { get; set; }
 
         [Required]
-        public User User { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
         public int UserID { get; set; }
 
         [Required]
