@@ -20,6 +20,23 @@
 
         return classes;
     }
+
+    private string GetRequestClasses(Dictionary<string, object> date, Dictionary<string, object> request)
+    {
+        string classes = "request";
+
+        if ((DateTime)date["date"] == (DateTime)request["start_date"])
+        {
+            classes += " request-start";
+        }
+
+        if ((DateTime)date["date"] == (DateTime)request["end_date"])
+        {
+            classes += " request-end";
+        }
+
+        return classes;
+    }
 }
 
 <div class="text-center">
@@ -43,7 +60,15 @@
             <div class="row">
                 @foreach (Dictionary<string, object> date in week)
                 {
-                    <div class="@GetBlockClasses(date)">@String.Format("{0:dd-MM-yy}", date["date"])</div>
+                    <div class="@GetBlockClasses(date)">
+
+                        <div>@String.Format("{0:dd-MM-yy}", date["date"])</div>
+                        @foreach (Dictionary<string, object> request in (List<Dictionary<string, object>>) date["requests"])
+                        {
+                            <div class="@GetRequestClasses(date, request)">@request["user_id"]</div>
+                        }
+
+                    </div>
                 }
             </div>
         }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,7 +15,7 @@ namespace hippolidays.Pages
 
         public void OnGet(DateTime? calendar)
         {
-            DateTime CurrentMonth = DateTime.Today;
+            DateTime CurrentMonth = DateTime.Today.Date;
 
             if (calendar.HasValue)
             {
@@ -50,12 +51,54 @@ namespace hippolidays.Pages
                         { "date", date },
                         { "is_today", isToday },
                         { "is_in_month", isInMonth },
+                        { "requests", new List<Dictionary<string, object>>() }
                     };
 
                     week.Add(day);
                 }
 
                 data.Add(week);
+            }
+
+            // <-- mock data -->
+            List<Dictionary<string, object>> requestsData = new List<Dictionary<string, object>>();
+            Dictionary<string, object> requestA = new Dictionary<string, object>
+            {
+                { "request_id", "111"},
+                { "user_id", "222"},
+                { "request_type_id", "333"},
+                { "start_date", new DateTime(2023, 1, 2)},
+                { "end_date", new DateTime(2023, 1, 10)}
+            };
+            Dictionary<string, object> requestB = new Dictionary<string, object>
+            {
+                { "request_id", "112"},
+                { "user_id", "223"},
+                { "request_type_id", "334"},
+                { "start_date", new DateTime(2023, 1, 3)},
+                { "end_date", new DateTime(2023, 1, 14)}
+            };
+            requestsData.Add(requestA);
+            requestsData.Add(requestB);
+            // <-- mock data -->
+
+            foreach (var request in requestsData)
+            {
+                foreach (List<Dictionary<string,object>> week in data)
+                {
+                    foreach (Dictionary<string, object> day in week)
+                    {
+                        DateTime dayDate = (DateTime)day["date"];
+                        DateTime requestStartDate = (DateTime)request["start_date"];
+                        DateTime requestEndDate = (DateTime)request["end_date"];
+
+                        if (dayDate.Date >= requestStartDate.Date && dayDate.Date <= requestEndDate.Date)
+                        {
+                            List<Dictionary<string, object>> requests = (List<Dictionary<string, object>>)day["requests"];
+                            requests.Add(request);
+                        }
+                    }
+                }
             }
 
             this.calendar.Add("data", data);

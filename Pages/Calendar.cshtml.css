@@ -18,6 +18,20 @@
     border: 1px solid rgba(132,180,191);
 }
 
+.request {
+    height: 2.8vh;
+    border: 2px solid rgba(43,58,103);
+    margin: 1px;
+}
+
+.approved {
+    background: rgba(138,201,38,0.5);
+}
+
+.pending {
+    background: rgba(255,202,58,0.5);
+}
+
 .not-in-month {
     background: rgba(236,237,237, 0.8);
 }
