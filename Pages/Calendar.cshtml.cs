@@ -64,22 +64,40 @@ namespace hippolidays.Pages
             List<Dictionary<string, object>> requestsData = new List<Dictionary<string, object>>();
             Dictionary<string, object> requestA = new Dictionary<string, object>
             {
-                { "request_id", "111"},
-                { "user_id", "222"},
+                { "request_status", "approved"},
+                { "user_name", "Hal"},
                 { "request_type_id", "333"},
                 { "start_date", new DateTime(2023, 1, 2)},
                 { "end_date", new DateTime(2023, 1, 10)}
             };
             Dictionary<string, object> requestB = new Dictionary<string, object>
             {
-                { "request_id", "112"},
-                { "user_id", "223"},
+                { "request_status", "pending"},
+                { "user_name", "Me again"},
                 { "request_type_id", "334"},
                 { "start_date", new DateTime(2023, 1, 3)},
                 { "end_date", new DateTime(2023, 1, 14)}
             };
+            Dictionary<string, object> requestC = new Dictionary<string, object>
+            {
+                { "request_status", "pending"},
+                { "user_name", "That sounds bad stuff blah blah"},
+                { "request_type_id", "334"},
+                { "start_date", new DateTime(2023, 1, 10)},
+                { "end_date", new DateTime(2023, 1, 17)}
+            };
+            Dictionary<string, object> requestD = new Dictionary<string, object>
+            {
+                { "request_status", "pending"},
+                { "user_name", "That sounds bad stuff blah blah"},
+                { "request_type_id", "334"},
+                { "start_date", new DateTime(2023, 1, 8)},
+                { "end_date", new DateTime(2023, 1, 12)}
+            };
             requestsData.Add(requestA);
             requestsData.Add(requestB);
+            requestsData.Add(requestC);
+            requestsData.Add(requestD);
             // <-- mock data -->
 
             foreach (var request in requestsData)
