@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using hippolidays.Data;
 using hippolidays.Models;
 
-namespace hippolidays
+namespace hippolidays.Pages.Requests
 {
     public class DetailsModel : PageModel
     {
-        private readonly DefaultConnection _context;
+        private readonly hippolidays.Data.ApplicationDbContext _context;
 
-        public DetailsModel(DefaultConnection context)
+        public DetailsModel(hippolidays.Data.ApplicationDbContext context)
         {
             _context = context;
         }

@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using hippolidays.Data;
 using hippolidays.Models;
 
-namespace hippolidays
+namespace hippolidays.Pages.Requests
 {
     public class DeleteModel : PageModel
     {
-        private readonly DefaultConnection _context;
+        private readonly hippolidays.Data.ApplicationDbContext _context;
 
-        public DeleteModel(DefaultConnection context)
+        public DeleteModel(hippolidays.Data.ApplicationDbContext context)
         {
             _context = context;
         }

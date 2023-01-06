@@ -1,20 +1,12 @@
 @page
-@model hippolidays.DeleteModel
+@model hippolidays.Pages.Requests.DetailsModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Details";
 }
 
-<!DOCTYPE html>
+<h1>Details</h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
-</head>
-<body>
-
-<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Request</h4>
     <hr />
@@ -32,12 +24,8 @@
             @Html.DisplayFor(model => model.Request.end_date)
         </dd>
     </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Request.request_id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
-    </form>
 </div>
-</body>
-</html>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Request?.request_id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

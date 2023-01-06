@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using hippolidays.Data;
 using hippolidays.Models;
 
-namespace hippolidays
+namespace hippolidays.Pages.Requests
 {
     public class EditModel : PageModel
     {
-        private readonly DefaultConnection _context;
+        private readonly hippolidays.Data.ApplicationDbContext _context;
 
-        public EditModel(DefaultConnection context)
+        public EditModel(hippolidays.Data.ApplicationDbContext context)
         {
             _context = context;
         }

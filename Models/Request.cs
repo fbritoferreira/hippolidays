@@ -11,7 +11,7 @@ namespace hippolidays.Models
         [Key]
         public int request_id { get; set; }
 
-        public IdentityUser user_id { get; set; }
+        public ApplicationUser user_id { get; set; }
         
         public RequestType request_type_id { get; set; }
         

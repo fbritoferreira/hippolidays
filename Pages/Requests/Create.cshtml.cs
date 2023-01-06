@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using hippolidays.Data;
 using hippolidays.Models;
 
-namespace hippolidays
+namespace hippolidays.Pages.Requests
 {
     public class CreateModel : PageModel
     {
-        private readonly DefaultConnection _context;
+        private readonly hippolidays.Data.ApplicationDbContext _context;
 
-        public CreateModel(DefaultConnection context)
+        public CreateModel(hippolidays.Data.ApplicationDbContext context)
         {
             _context = context;
         }
