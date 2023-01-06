@@ -1,0 +1,64 @@
+﻿@page
+@model hippolidays.Pages.ApproveModel
+@{
+}
+
+@functions{
+    private string GetFilterClass(string filter)
+    {
+        if (Model.viewData["filter"] == null && filter == "all")
+        {
+            return "active";
+        }
+        return filter == (string)Model.viewData["filter"] ? "active" : "";
+    }
+
+    private string GetUpper(string status)
+    {
+        return status.ToUpper();
+    }
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">
+        Approve Holidays
+    </h1>
+
+    <div class="container">
+        <ul class="nav justify-content-center navbar-dark">
+            <li class="nav-item @GetFilterClass("all")">
+                <a class="nav-link" asp-route-filter="" method="post">All</a>
+            </li>
+            <li class="nav-item @GetFilterClass("approved")">
+                <a class="nav-link" asp-route-filter="approved" method="post">Approved</a>
+            </li>
+            <li class="nav-item @GetFilterClass("pending")">
+                <a class="nav-link" asp-route-filter="pending" method="post">Pending</a>
+            </li>
+            <li class="nav-item @GetFilterClass("rejected")">
+                <a class="nav-link" asp-route-filter="rejected" method="post">Rejected</a>
+            </li>
+            <li class="nav-item @GetFilterClass("cancelled")">
+                <a class="nav-link" asp-route-filter="cancelled" method="post">Cancelled</a>
+            </li>
+        </ul>
+
+        <div class="requests-container">
+            @foreach (Dictionary<string, object> request in (List<Dictionary<string, object>>)Model.viewData["requests"])
+            {
+                <div class="row request">
+                    <div class="col-9">
+                        <div>@GetUpper((string)request["request_status"])</div>
+                        <div>@String.Format("{0:ddd d MMMM}", request["start_date"]) - @String.Format("{0:ddd d MMMM}", request["end_date"])</div>
+                    </div>
+                    <div class="col-3 text-center my-auto">
+                        <button type="button" class="btn btn-outline-primary btn-sm">Approve</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm">Reject</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
