@@ -1,0 +1,36 @@
+﻿@page
+@model hippolidays.Pages.HolidaysModel
+@{
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">
+        My Holidays
+    </h1>
+
+    <div class="container">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active" asp-route-filter="" method="post">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-route-filter="approved" method="post">Approved</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-route-filter="pending" method="post">Pending</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-route-filter="denied" method="post">Denied</a>
+            </li>
+        </ul>
+
+        @foreach (Dictionary<string, object> request in (List<Dictionary<string, object>>)Model.viewData["requests"])
+        {
+            <div class="row">
+                <div>@String.Join(',', request)</div>
+            </div>
+        }
+    </div>
+
+</div>
