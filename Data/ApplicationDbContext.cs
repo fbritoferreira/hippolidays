@@ -1,4 +1,4 @@
-﻿using hippolidays.Models;
+using hippolidays.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,4 +15,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(builder);
     }
+
+    public DbSet<hippolidays.Models.Request> Request { get; set; } = default!;
 }

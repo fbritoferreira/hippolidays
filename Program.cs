@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using hippolidays.Data;
 using hippolidays.Models;
 using static hippolidays.WebApplicationExtensions;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,6 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
-
 
 var app = builder.Build();
 
