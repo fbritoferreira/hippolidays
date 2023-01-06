@@ -34,7 +34,7 @@ namespace hippolidays.Pages
             };
             Dictionary<string, object> requestC = new Dictionary<string, object>
             {
-                { "request_status", "denied"},
+                { "request_status", "rejected"},
                 { "user_name", "Hal"},
                 { "request_type_id", "334"},
                 { "start_date", new DateTime(2023, 1, 10)},
@@ -48,10 +48,19 @@ namespace hippolidays.Pages
                 { "start_date", new DateTime(2023, 1, 8)},
                 { "end_date", new DateTime(2023, 1, 12)}
             };
+            Dictionary<string, object> requestE = new Dictionary<string, object>
+            {
+                { "request_status", "cancelled"},
+                { "user_name", "Hal"},
+                { "request_type_id", "334"},
+                { "start_date", new DateTime(2023, 1, 8)},
+                { "end_date", new DateTime(2023, 1, 12)}
+            };
             requestsData.Add(requestA);
             requestsData.Add(requestB);
             requestsData.Add(requestC);
             requestsData.Add(requestD);
+            requestsData.Add(requestE);
             // <-- mock data -->
 
             if (!string.IsNullOrEmpty(filter))
@@ -60,6 +69,7 @@ namespace hippolidays.Pages
             }
 
             viewData.Add("requests", requestsData);
+            viewData.Add("filter", filter);
         }
     }
 }
