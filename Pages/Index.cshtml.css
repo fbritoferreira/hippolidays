@@ -1,0 +1,14 @@
+﻿
+.approved {
+    background-color: grey;
+}
+
+.pending {
+    background-color: grey;
+    border: dashed 1px red;
+}
+
+.updated {
+    background-color: grey;
+    border: dashed 1px blue;
+}
