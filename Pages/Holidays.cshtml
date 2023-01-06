@@ -48,8 +48,13 @@
             @foreach (Dictionary<string, object> request in (List<Dictionary<string, object>>)Model.viewData["requests"])
             {
                 <div class="row request">
-                    <div>@GetUpper((string)request["request_status"])</div>
-                    <div>@String.Format("{0:ddd d MMMM}", request["start_date"]) - @String.Format("{0:ddd d MMMM}", request["end_date"])</div>
+                    <div class="col-9">
+                        <div>@GetUpper((string)request["request_status"])</div>
+                        <div>@String.Format("{0:ddd d MMMM}", request["start_date"]) - @String.Format("{0:ddd d MMMM}", request["end_date"])</div>
+                    </div>
+                    <div class="col-3 text-center my-auto">
+                        <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                    </div>
                 </div>
             }
         </div>
