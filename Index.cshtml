@@ -1,0 +1,50 @@
+@page
+@model hippolidays.IndexModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Request[0].start_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Request[0].end_date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Request) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.start_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.end_date)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.request_id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.request_id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.request_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

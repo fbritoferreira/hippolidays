@@ -8,6 +8,7 @@ namespace hippolidays.Models
     public class Request
 
     {
+        [Key]
         public int request_id { get; set; }
 
         public IdentityUser user_id { get; set; }

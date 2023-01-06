@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Identity;
 namespace hippolidays.Models
 {
     public class RequestType
-
     {
+        [Key]
         public int request_type_id { get; set; }
 
         public string? type { get; set; }
