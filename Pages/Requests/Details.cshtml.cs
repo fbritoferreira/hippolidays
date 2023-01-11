@@ -19,7 +19,7 @@ namespace hippolidays.Pages.Requests
             _context = context;
         }
 
-      public Request Request { get; set; } = default!; 
+      public new Request Request { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,7 +28,7 @@ namespace hippolidays.Pages.Requests
                 return NotFound();
             }
 
-            var request = await _context.Request.FirstOrDefaultAsync(m => m.request_id == id);
+            var request = await _context.Request.FirstOrDefaultAsync(m => m.Request_Id == id);
             if (request == null)
             {
                 return NotFound();
