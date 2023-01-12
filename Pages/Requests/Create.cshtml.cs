@@ -14,11 +14,13 @@ namespace hippolidays.Pages.Requests
 {
     public class CreateModel : PageModel
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly hippolidays.Data.ApplicationDbContext _context;
 
-        public CreateModel(hippolidays.Data.ApplicationDbContext context)
+        public CreateModel(hippolidays.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
@@ -43,9 +45,13 @@ namespace hippolidays.Pages.Requests
             {
                 return Page();
             }
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            Request.ApplicationUser = await _userManager.GetUserAsync(User);
 
             _context.RequestType.Add(RequestType);
+            Request.RequestType = RequestType;
+
             _context.Request.Add(Request);
             await _context.SaveChangesAsync();
 
