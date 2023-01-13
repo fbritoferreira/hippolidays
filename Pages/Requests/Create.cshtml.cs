@@ -9,9 +9,11 @@ using hippolidays.Data;
 using hippolidays.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hippolidays.Pages.Requests
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
