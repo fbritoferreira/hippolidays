@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hippolidays.Data;
 
@@ -10,9 +11,11 @@ using hippolidays.Data;
 namespace hippolidays.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230104010108_IdentityExtended")]
+    partial class IdentityExtended
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
@@ -228,53 +231,6 @@ namespace hippolidays.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("hippolidays.Models.Request", b =>
-                {
-                    b.Property<int>("Request_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("End_Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Repeat")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("RequestType_Id")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Start_Date")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Request_Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("RequestType_Id");
-
-                    b.ToTable("Request");
-                });
-
-            modelBuilder.Entity("hippolidays.Models.RequestType", b =>
-                {
-                    b.Property<int>("RequestType_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Reason")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("RequestType_Id");
-
-                    b.ToTable("RequestType");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -324,21 +280,6 @@ namespace hippolidays.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("hippolidays.Models.Request", b =>
-                {
-                    b.HasOne("hippolidays.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("hippolidays.Models.RequestType", "RequestType")
-                        .WithMany()
-                        .HasForeignKey("RequestType_Id");
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("RequestType");
                 });
 #pragma warning restore 612, 618
         }
