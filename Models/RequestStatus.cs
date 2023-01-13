@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 namespace hippolidays.Models
 {
     public class RequestStatus
-	{
+    {
         public int ID { get; set; }
 
         [Required]
