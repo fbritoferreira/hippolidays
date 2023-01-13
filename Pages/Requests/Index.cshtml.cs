@@ -19,7 +19,7 @@ namespace hippolidays.Pages.Requests
             _context = context;
         }
 
-        public IList<Request> Request { get;set; } = default!;
+        public new IList<Request> Request { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
