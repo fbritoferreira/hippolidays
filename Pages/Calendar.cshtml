@@ -2,6 +2,9 @@
 @model hippolidays.Pages.CalendarModel
 @{
 }
+@using Microsoft.AspNetCore.Identity
+@using Models
+@inject UserManager<ApplicationUser> UserManager
 
 @functions{
     private string GetBlockClasses(Dictionary<string, object> date)
@@ -46,11 +49,16 @@
                     <div class="@GetBlockClasses(date)">
 
                         <div>@String.Format("{0:dd-MM-yy}", date["date"])</div>
-                        @foreach (Models.Request request in (List<Models.Request>) date["requests"])
-                            {
-                                //System.Diagnostics.Debug.WriteLine(request.request_status);
+                        @foreach (Models.Request request in (List<Models.Request>)date["requests"])
 
-                            <div class="request pending">@request.ApplicationUser?.Name</div>
+                            {
+                                var user = UserManager.GetUserAsync(HttpContext.User);
+                                if (request.ApplicationUser?.Team_Name == user?.Result?.Team_Name)
+                                {
+
+                                     <div class="request pending">@request.ApplicationUser?.Name</div>
+                                }
+                         
                         }
 
                     </div>
