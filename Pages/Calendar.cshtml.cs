@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using hippolidays.Models;
 
 namespace hippolidays.Pages
 {
@@ -13,13 +15,28 @@ namespace hippolidays.Pages
     {
         public Dictionary<string, object> calendar = new Dictionary<string, object>();
 
-        public void OnGet(DateTime? calendar)
+        private readonly hippolidays.Data.ApplicationDbContext _context;
+
+        public CalendarModel(hippolidays.Data.ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public new IList<Request> Request { get; set; } = default!;
+
+
+        public async void OnGet(DateTime? calendar)
         {
             DateTime CurrentMonth = DateTime.Today.Date;
 
             if (calendar.HasValue)
             {
                 CurrentMonth = (DateTime)calendar;
+            }
+
+            if (_context.Request != null)
+            {
+                Request = await _context.Request.ToListAsync();
             }
 
             int daysInMonth = DateTime.DaysInMonth(CurrentMonth.Year, CurrentMonth.Month);
@@ -51,7 +68,7 @@ namespace hippolidays.Pages
                         { "date", date },
                         { "is_today", isToday },
                         { "is_in_month", isInMonth },
-                        { "requests", new List<Dictionary<string, object>>() }
+                        { "requests", new List<Request>() }
                     };
 
                     week.Add(day);
@@ -60,65 +77,26 @@ namespace hippolidays.Pages
                 data.Add(week);
             }
 
-            // <-- mock data -->
-            List<Dictionary<string, object>> requestsData = new List<Dictionary<string, object>>();
-            Dictionary<string, object> requestA = new Dictionary<string, object>
-            {
-                { "request_status", "approved"},
-                { "user_name", "Hal"},
-                { "request_type_id", "333"},
-                { "start_date", new DateTime(2023, 1, 2)},
-                { "end_date", new DateTime(2023, 1, 10)}
-            };
-            Dictionary<string, object> requestB = new Dictionary<string, object>
-            {
-                { "request_status", "pending"},
-                { "user_name", "Me again"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 3)},
-                { "end_date", new DateTime(2023, 1, 14)}
-            };
-            Dictionary<string, object> requestC = new Dictionary<string, object>
-            {
-                { "request_status", "pending"},
-                { "user_name", "That sounds bad stuff blah blah"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 10)},
-                { "end_date", new DateTime(2023, 1, 17)}
-            };
-            Dictionary<string, object> requestD = new Dictionary<string, object>
-            {
-                { "request_status", "pending"},
-                { "user_name", "That sounds bad stuff blah blah"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 8)},
-                { "end_date", new DateTime(2023, 1, 12)}
-            };
-            requestsData.Add(requestA);
-            requestsData.Add(requestB);
-            requestsData.Add(requestC);
-            requestsData.Add(requestD);
-            // <-- mock data -->
-
-            foreach (var request in requestsData)
+            foreach (var item in Request)
             {
                 foreach (List<Dictionary<string,object>> week in data)
                 {
                     foreach (Dictionary<string, object> day in week)
                     {
                         DateTime dayDate = (DateTime)day["date"];
-                        DateTime requestStartDate = (DateTime)request["start_date"];
-                        DateTime requestEndDate = (DateTime)request["end_date"];
+                        DateTime requestStartDate = (DateTime)item.Start_Date;
+                        DateTime requestEndDate = (DateTime)item.End_Date;
 
+                        // only add requests from the same team --> to be added later
                         if (dayDate.Date >= requestStartDate.Date && dayDate.Date <= requestEndDate.Date)
                         {
-                            List<Dictionary<string, object>> requests = (List<Dictionary<string, object>>)day["requests"];
-                            requests.Add(request);
+                            List<Request> requests = (List<Request>)day["requests"];
+                            requests.Add(item);
                         }
                     }
                 }
             }
-
+            
             this.calendar.Add("data", data);
             this.calendar.Add("current_month", CurrentMonth);
             this.calendar.Add("previous_month", CurrentMonth.Date.AddMonths(-1));

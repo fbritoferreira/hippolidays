@@ -10,18 +10,18 @@ namespace hippolidays.Models
         public int ID { get; set; }
 
         [Required]
-        public Request Request { get; set; }
+        public Request? Request { get; set; }
         public int RequestID { get; set; }
 
         [Required]
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
         public int UserID { get; set; }
 
         [Required]
-        public string status { get; set; }
+        public string? Status { get; set; }
 
         [Required]
-        public string reason { get; set; }
+        public string? Reason { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
