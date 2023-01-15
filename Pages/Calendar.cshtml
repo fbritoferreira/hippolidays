@@ -39,7 +39,7 @@
             <button class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["next_month"])</button>
         </a>
     </div>
-
+    <h2>@String.Format("{0:MMMM}", Model.calendar["current_month"])</h2>
     <div class="container">
         @foreach (List<Dictionary<string, object>> week in (List<List<Dictionary<string, object>>>)Model.calendar["data"])
         {

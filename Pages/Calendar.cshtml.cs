@@ -25,14 +25,9 @@ namespace hippolidays.Pages
         public new IList<Request> Request { get; set; } = default!;
 
 
-        public async void OnGet(DateTime? calendar)
+        public async void OnGet(string? calendar)
         {
-            DateTime CurrentMonth = DateTime.Today.Date;
-
-            if (calendar.HasValue)
-            {
-                CurrentMonth = (DateTime)calendar;
-            }
+            DateTime CurrentMonth = (calendar != null) ? DateTime.Parse(calendar): DateTime.Today.Date;
 
             if (_context.Request != null)
             {

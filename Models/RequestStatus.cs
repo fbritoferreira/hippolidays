@@ -10,11 +10,11 @@ namespace hippolidays.Models
         public int ID { get; set; }
 
         [Required]
-        public Request? Request { get; set; }
+        public virtual Request? Request { get; set; }
         public int RequestID { get; set; }
 
         [Required]
-        public ApplicationUser? ApplicationUser { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
         public int UserID { get; set; }
 
         [Required]
