@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hippolidays.Data;
 
@@ -10,9 +11,11 @@ using hippolidays.Data;
 namespace hippolidays.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230106161711_Requests")]
+    partial class Requests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
@@ -230,47 +233,44 @@ namespace hippolidays.Data.Migrations
 
             modelBuilder.Entity("hippolidays.Models.Request", b =>
                 {
-                    b.Property<int>("Request_Id")
+                    b.Property<int>("request_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ApplicationUserId")
+                    b.Property<DateTime>("end_date")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("End_Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Repeat")
+                    b.Property<int>("request_type_id1")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("RequestType_Id")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Start_Date")
+                    b.Property<DateTime>("start_date")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Request_Id");
+                    b.Property<string>("user_idId")
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasKey("request_id");
 
-                    b.HasIndex("RequestType_Id");
+                    b.HasIndex("request_type_id1");
+
+                    b.HasIndex("user_idId");
 
                     b.ToTable("Request");
                 });
 
             modelBuilder.Entity("hippolidays.Models.RequestType", b =>
                 {
-                    b.Property<int>("RequestType_Id")
+                    b.Property<int>("request_type_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Reason")
+                    b.Property<int>("reason")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("type")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("RequestType_Id");
+                    b.HasKey("request_type_id");
 
                     b.ToTable("RequestType");
                 });
@@ -328,17 +328,19 @@ namespace hippolidays.Data.Migrations
 
             modelBuilder.Entity("hippolidays.Models.Request", b =>
                 {
-                    b.HasOne("hippolidays.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("hippolidays.Models.RequestType", "request_type_id")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("request_type_id1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("hippolidays.Models.RequestType", "RequestType")
+                    b.HasOne("hippolidays.Models.ApplicationUser", "user_id")
                         .WithMany()
-                        .HasForeignKey("RequestType_Id");
+                        .HasForeignKey("user_idId");
 
-                    b.Navigation("ApplicationUser");
+                    b.Navigation("request_type_id");
 
-                    b.Navigation("RequestType");
+                    b.Navigation("user_id");
                 });
 #pragma warning restore 612, 618
         }

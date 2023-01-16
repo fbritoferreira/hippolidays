@@ -1,0 +1,59 @@
+﻿@page
+@model hippolidays.Pages.CalendarModel
+@{
+}
+
+@functions{
+    private string GetBlockClasses(Dictionary<string, object> date)
+    {
+        string classes = "col-sm block";
+
+        if ((bool)date["is_today"])
+        {
+            classes += " today";
+        }
+
+        if (!(bool)date["is_in_month"])
+        {
+            classes += " not-in-month";
+        }
+
+        return classes;
+    }
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">
+        Calendar
+    </h1>
+
+    <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
+        <a asp-page="/Calendar" asp-route-calendar="@Model.calendar["previous_month"]" method="post">
+            <button class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["previous_month"])</button>
+        </a>
+        <a asp-route-calendar="@Model.calendar["next_month"]" method="post">
+            <button class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["next_month"])</button>
+        </a>
+    </div>
+
+    <div class="container">
+        @foreach (List<Dictionary<string, object>> week in (List<List<Dictionary<string, object>>>)Model.calendar["data"])
+        {
+            <div class="row">
+                @foreach (Dictionary<string, object> date in week)
+                {
+                    <div class="@GetBlockClasses(date)">
+
+                        <div>@String.Format("{0:dd-MM-yy}", date["date"])</div>
+                        @foreach (Dictionary<string, object> request in (List<Dictionary<string, object>>) date["requests"])
+                        {
+                            <div class="request @request["request_status"]">@request["user_name"]</div>
+                        }
+
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
