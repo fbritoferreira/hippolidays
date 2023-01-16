@@ -2,6 +2,7 @@
 @model hippolidays.Pages.HolidaysModel
 @{
 }
+@using Models
 
 @functions{
     private string GetFilterClass(string filter)
@@ -45,15 +46,17 @@
         </ul>
 
         <div class="requests-container">
-            @foreach (Dictionary<string, object> request in (List<Dictionary<string, object>>)Model.viewData["requests"])
+            @foreach (Models.Request request in (List<Models.Request>)Model.viewData["requests"])
             {
                 <div class="row request">
                     <div class="col-9">
-                        <div>@GetUpper((string)request["request_status"])</div>
-                        <div>@String.Format("{0:ddd d MMMM}", request["start_date"]) - @String.Format("{0:ddd d MMMM}", request["end_date"])</div>
+                        <div>@GetUpper("Howdy")</div>
+                        <div>@String.Format("{0:ddd d MMMM}", request.Start_Date) - @String.Format("{0:ddd d MMMM}", request.End_Date)</div>
                     </div>
                     <div class="col-3 text-center my-auto">
-                        <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                        <a asp-page="./Edit" asp-route-id="@request.Request_Id">
+                            <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                        </a>
                     </div>
                 </div>
             }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using hippolidays.Models;
 
 namespace hippolidays.Pages
 {
@@ -12,63 +14,29 @@ namespace hippolidays.Pages
     {
         public Dictionary<string, object> viewData = new Dictionary<string, object>();
 
-        public void OnGet(string? filter)
+        private readonly hippolidays.Data.ApplicationDbContext _context;
+
+        public HolidaysModel(hippolidays.Data.ApplicationDbContext context)
         {
-            // <-- mock data -->
-            List<Dictionary<string, object>> requestsData = new List<Dictionary<string, object>>();
-            Dictionary<string, object> requestA = new Dictionary<string, object>
-            {
-                { "request_status", "approved"},
-                { "user_name", "Hal"},
-                { "request_type_id", "333"},
-                { "start_date", new DateTime(2023, 1, 2)},
-                { "end_date", new DateTime(2023, 1, 10)}
-            };
-            Dictionary<string, object> requestB = new Dictionary<string, object>
-            {
-                { "request_status", "pending"},
-                { "user_name", "Hal"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 3)},
-                { "end_date", new DateTime(2023, 1, 14)}
-            };
-            Dictionary<string, object> requestC = new Dictionary<string, object>
-            {
-                { "request_status", "rejected"},
-                { "user_name", "Hal"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 10)},
-                { "end_date", new DateTime(2023, 1, 17)}
-            };
-            Dictionary<string, object> requestD = new Dictionary<string, object>
-            {
-                { "request_status", "pending"},
-                { "user_name", "Hal"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 8)},
-                { "end_date", new DateTime(2023, 1, 12)}
-            };
-            Dictionary<string, object> requestE = new Dictionary<string, object>
-            {
-                { "request_status", "cancelled"},
-                { "user_name", "Hal"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 8)},
-                { "end_date", new DateTime(2023, 1, 12)}
-            };
-            requestsData.Add(requestA);
-            requestsData.Add(requestB);
-            requestsData.Add(requestC);
-            requestsData.Add(requestD);
-            requestsData.Add(requestE);
-            // <-- mock data -->
+            _context = context;
+        }
 
-            if (!string.IsNullOrEmpty(filter))
+        public new IList<Request> Request { get; set; } = default!;
+
+        public async void OnGet(string? filter)
+        {
+
+            if (_context.Request != null)
             {
-                requestsData = requestsData.FindAll(request => (string)request["request_status"] == filter);
+                Request = await _context.Request.ToListAsync();
             }
+            
+            //if (!string.IsNullOrEmpty(filter))
+            //{
+            //    Request = Request.FindAll(request => (string)request["request_status"] == filter);
+            //}
 
-            viewData.Add("requests", requestsData);
+            viewData.Add("requests", Request);
             viewData.Add("filter", filter);
         }
     }
