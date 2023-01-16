@@ -1,0 +1,42 @@
+@page
+@model hippolidays.Pages.Requests.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Request[0].Start_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Request[0].End_Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Request) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End_Date)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Request_Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Request_Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Request_Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
