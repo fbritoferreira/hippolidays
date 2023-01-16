@@ -82,7 +82,6 @@ namespace hippolidays.Pages
                         DateTime requestStartDate = (DateTime)item.Start_Date;
                         DateTime requestEndDate = (DateTime)item.End_Date;
 
-                        // only add requests from the same team --> to be added later
                         if (dayDate.Date >= requestStartDate.Date && dayDate.Date <= requestEndDate.Date)
                         {
                             List<Request> requests = (List<Request>)day["requests"];
