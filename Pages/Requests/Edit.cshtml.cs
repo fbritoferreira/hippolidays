@@ -21,7 +21,7 @@ namespace hippolidays.Pages.Requests
         }
 
         [BindProperty]
-        public Request Request { get; set; } = default!;
+        public new Request Request { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,7 +30,7 @@ namespace hippolidays.Pages.Requests
                 return NotFound();
             }
 
-            var request =  await _context.Request.FirstOrDefaultAsync(m => m.request_id == id);
+            var request =  await _context.Request.FirstOrDefaultAsync(m => m.Request_Id == id);
             if (request == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace hippolidays.Pages.Requests
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RequestExists(Request.request_id))
+                if (!RequestExists(Request.Request_Id))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace hippolidays.Pages.Requests
 
         private bool RequestExists(int id)
         {
-          return (_context.Request?.Any(e => e.request_id == id)).GetValueOrDefault();
+          return (_context.Request?.Any(e => e.Request_Id == id)).GetValueOrDefault();
         }
     }
 }

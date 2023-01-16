@@ -2,7 +2,7 @@
 @model hippolidays.Pages.Requests.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Book Holiday";
 }
 
 <h1>Create</h1>
@@ -14,24 +14,46 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Request.start_date" class="control-label"></label>
-                <input asp-for="Request.start_date" class="form-control" />
-                <span asp-validation-for="Request.start_date" class="text-danger"></span>
+                <label asp-for="Request.Start_Date" class="control-label"></label>
+                <input asp-for="Request.Start_Date" class="form-control" />
+                <span asp-validation-for="Request.Start_Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Request.end_date" class="control-label"></label>
-                <input asp-for="Request.end_date" class="form-control" />
-                <span asp-validation-for="Request.end_date" class="text-danger"></span>
+                <label asp-for="Request.End_Date" class="control-label"></label>
+                <input asp-for="Request.End_Date" class="form-control" />
+                <span asp-validation-for="Request.End_Date" class="text-danger"></span>
+            </div>
+            @*Leaving this if time allows for it*@ 
+            <div class="form-group">
+                <label asp-for="Request.Repeat" class="control-label"></label>
+                <select asp-for="Request.Repeat" class="form-control" aria-required="true">
+                    <option asp-for="Request.Repeat" value="false">Doesn't Repeat</option>
+                    <option asp-for="Request.Repeat" value="true">Repeats</option>
+                </select>
+            </div>
+
+            @*Leave type*@
+            <div class="form-group">
+                <label asp-for="RequestType.Type" class="control-label"></label>
+                <select asp-for="RequestType.Type" class="form-control" aria-required="true">
+                    <option asp-for="RequestType.Type" value="annual">Annual Leave</option>
+                    <option asp-for="RequestType.Type" value="special">Special Leave</option>
+                    <option asp-for="RequestType.Type" value="service">Service Day</option>
+                </select>
+                <span asp-validation-for="RequestType.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="RequestType.Reason" class="control-label"></label>
+                <input type="text" asp-for="RequestType.Reason" class="form-control" />
+            </div>
+            <div>
+                @*Put calendar here*@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit Request" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {

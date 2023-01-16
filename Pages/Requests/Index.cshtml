@@ -14,10 +14,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Request[0].start_date)
+                @Html.DisplayNameFor(model => model.Request[0].Start_Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Request[0].end_date)
+                @Html.DisplayNameFor(model => model.Request[0].End_Date)
             </th>
             <th></th>
         </tr>
@@ -26,15 +26,15 @@
 @foreach (var item in Model.Request) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.start_date)
+                @Html.DisplayFor(modelItem => item.Start_Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.end_date)
+                @Html.DisplayFor(modelItem => item.End_Date)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.request_id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.request_id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.request_id">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Request_Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Request_Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Request_Id">Delete</a>
             </td>
         </tr>
 }

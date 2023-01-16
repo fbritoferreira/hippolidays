@@ -9,18 +9,21 @@ namespace hippolidays.Models
 
     {
         [Key]
-        public int request_id { get; set; }
+        public int Request_Id { get; set; }
 
-        public ApplicationUser user_id { get; set; }
-        
-        public RequestType request_type_id { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
+
+
+        public RequestType? RequestType { get; set; }
+
         
         [DataType(DataType.Date)]
-        public DateTime start_date { get; set; }
+        public DateTime Start_Date { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime end_date { get; set; }
+        public DateTime End_Date { get; set; }
+
+        public bool Repeat { get; set; }
 
     }
 }
-
