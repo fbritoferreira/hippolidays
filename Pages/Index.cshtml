@@ -1,10 +1,64 @@
 ﻿@page
+@using hippolidays.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @model IndexModel
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1 align="center">@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-6" align="left">
+            <section>
+                <p class="approved row-md-2">Approved</p>
+                <p class="pending row-md-2">Pending</p>
+                <p class="updated row-md-2">Updated</p>
+            </section>
+        </div>
+        <div class="col-md-6" align="left">
+            <section>
+                <div id="piechart" style="width: 900px; height: 500px;"></div>
+            </section>
+        </div>
+    </div>
+}
+else
+{
+    Response.Redirect("/Identity/Account/Login");
+
+}
+
+<script type="text/javascript">
+google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        //mock data grab Users holiday instead of hardcoded data
+        var data = google.visualization.arrayToDataTable([
+            ['Option', 'Day'],
+            ['Taken', 11],
+            ['Pending', 2],
+            ['Available', 2]
+        ]);
+
+        var options = {
+            title: 'My Holiday',
+            pieSliceText: 'label',
+            slices: {
+                0: { color: '#01A851' },
+                1: { color: '#E48A01' },
+                2: { color: '#1163B3' }
+            }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+</script>
