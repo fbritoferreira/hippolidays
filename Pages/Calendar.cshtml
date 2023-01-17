@@ -2,6 +2,9 @@
 @model hippolidays.Pages.CalendarModel
 @{
 }
+@using Microsoft.AspNetCore.Identity
+@using Models
+@inject UserManager<ApplicationUser> UserManager
 
 @functions{
     private string GetBlockClasses(Dictionary<string, object> date)
@@ -36,7 +39,7 @@
             <button class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["next_month"])</button>
         </a>
     </div>
-
+    <h2>@String.Format("{0:MMMM}", Model.calendar["current_month"])</h2>
     <div class="container">
         @foreach (List<Dictionary<string, object>> week in (List<List<Dictionary<string, object>>>)Model.calendar["data"])
         {
@@ -46,9 +49,16 @@
                     <div class="@GetBlockClasses(date)">
 
                         <div>@String.Format("{0:dd-MM-yy}", date["date"])</div>
-                        @foreach (Dictionary<string, object> request in (List<Dictionary<string, object>>) date["requests"])
-                        {
-                            <div class="request @request["request_status"]">@request["user_name"]</div>
+                        @foreach (Models.Request request in (List<Models.Request>)date["requests"])
+
+                            {
+                                var user = UserManager.GetUserAsync(HttpContext.User);
+                                if (request.ApplicationUser?.Team_Name == user?.Result?.Team_Name)
+                                {
+
+                                     <div class="request pending">@request.ApplicationUser?.Name</div>
+                                }
+                         
                         }
 
                     </div>

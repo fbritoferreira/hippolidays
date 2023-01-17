@@ -18,5 +18,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<hippolidays.Models.Request> Request { get; set; } = default!;
     public DbSet<hippolidays.Models.RequestType> RequestType { get; set; } = default!;
-    public DbSet<hippolidays.Models.RequestType> RequestStatus { get; set; } = default!;
+    public DbSet<hippolidays.Models.RequestStatus> RequestStatus { get; set; } = default!;
 }
