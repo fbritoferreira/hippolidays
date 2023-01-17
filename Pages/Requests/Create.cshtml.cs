@@ -38,6 +38,7 @@ namespace hippolidays.Pages.Requests
         [BindProperty]
         public RequestType RequestType { get; set; } = default!;
 
+        public RequestStatus RequestStatus { get; set; } = default!;
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -47,14 +48,25 @@ namespace hippolidays.Pages.Requests
             {
                 return Page();
             }
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var emptyRequestStatus = new RequestStatus();
 
-            Request.ApplicationUser = await _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            Request.ApplicationUser = currentUser;
 
             _context.RequestType.Add(RequestType);
             Request.RequestType = RequestType;
 
             _context.Request.Add(Request);
+
+            emptyRequestStatus.Status = "pending";
+            emptyRequestStatus.ActionDate = DateTime.Today.Date;
+            emptyRequestStatus.Request = Request;
+            emptyRequestStatus.ApplicationUser = currentUser;
+            emptyRequestStatus.Reason = "initial request";
+
+            _context.RequestStatus.Add(emptyRequestStatus);
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
