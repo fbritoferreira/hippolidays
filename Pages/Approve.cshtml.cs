@@ -31,7 +31,7 @@ namespace hippolidays.Pages
         {
             Requests = new List<Request>();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var teamRequests = await _context.Request.Where(item => item.ApplicationUser.Team_Name == user.Team_Name && item.ApplicationUser.Id != user.Id).ToListAsync();
+            var teamRequests = await _context.Request.Where(item => item.ApplicationUser.Team_Name == user.Team_Name && item.ApplicationUser.Id != user.Id).OrderByDescending(req => req.Request_Id).ToListAsync();
 
             foreach (var item in teamRequests)
             {
@@ -48,10 +48,16 @@ namespace hippolidays.Pages
             viewData.Add("requests", Requests);
 
         }
-
-        public void OnPost()
+        
+        public async Task<IActionResult> OnPostStatusUpdate(int? id, string? status)
         {
-
+            var result = _context.Request.SingleOrDefault(b => b.Request_Id == id);
+            if (result != null)
+            {
+               result.RequestStatus.Status = status;
+               await _context.SaveChangesAsync();
+            }
+            return RedirectToPage("./Approve");
         }
     }
 }
