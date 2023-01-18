@@ -13,9 +13,7 @@ namespace hippolidays.Pages
 {
     public class ApproveModel : PageModel
     {
-        private static List<Request> Requests;
-        private static List<RequestStatus> RequestStatuses = new List<RequestStatus>();
-        private static List<Request> allRequests = new List<Request>();
+        private static List<Request>? Requests;
 
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -31,36 +29,28 @@ namespace hippolidays.Pages
 
         public async void OnGet(string? filter)
         {
-            viewData.Add("requests", null);
             Requests = new List<Request>();
-
-            if (_context.Request != null)
-            {
-               allRequests = await _context.Request.ToListAsync();
-            }
-
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            foreach (var item in allRequests)
-                {
-                   var result = await _context.RequestStatus.Where(item => item.ApplicationUser.Team_Name == user.Team_Name).ToListAsync();
-                   
-                        foreach (var status in result)
-                        {
-                            if (item.Request_Id == status.Request?.Request_Id)
-                            {
-                        if (status.Status == filter)
-                        {
-                            Requests.Add(item);
-                        } else if (string.IsNullOrEmpty(filter))
-                        {
-                            Requests.Add(item);
-                        }
+            var teamRequests = await _context.Request.Where(item => item.ApplicationUser.Team_Name == user.Team_Name && item.ApplicationUser.Id != user.Id).ToListAsync();
 
-                    }
+            foreach (var item in teamRequests)
+            {
+                if (item.RequestStatus?.Status == filter)
+                {
+                    Requests.Add(item);
+                }
+                else if (string.IsNullOrEmpty(filter))
+                {
+                    Requests.Add(item);
                 }
             }
             viewData.Add("filter", filter);
-            viewData["requests"] = Requests;
+            viewData.Add("requests", Requests);
+
+        }
+
+        public void OnPost()
+        {
 
         }
     }

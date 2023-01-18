@@ -56,6 +56,7 @@ namespace hippolidays.Pages.Requests
 
             _context.RequestType.Add(RequestType);
             Request.RequestType = RequestType;
+            Request.RequestStatus = RequestStatus;
 
             _context.Request.Add(Request);
 

@@ -51,13 +51,19 @@
                 {
                     <div class="row request">
                         <div class="col-9">
-                            @*<div>@GetUpper((string)request["request_status"])</div>*@
-                            <div>@String.Format("{0:ddd d MMMM}", request.Start_Date) - @String.Format("{0:ddd d MMMM}", request.End_Date)</div>
+                            <div>@GetUpper(request?.RequestStatus?.Status)</div>
+                            <div><b>Employee: </b>@request?.ApplicationUser?.Name</div>
+                            <div><b>Type of leave: </b>@GetUpper(request?.RequestType?.Type)</div>
+                            <div><b>Reason for leave: </b>@request?.RequestType?.Reason</div>
+                            <div><b>Dates: </b>@String.Format("{0:ddd d MMMM}", request.Start_Date) - @String.Format("{0:ddd d MMMM}", request.End_Date)</div>
                         </div>
+                        @if (request.RequestStatus.Status != "approved")
+                        {
                         <div class="col-3 text-center my-auto">
                             <button type="button" class="btn btn-outline-primary btn-sm">Approve</button>
                             <button type="button" class="btn btn-outline-primary btn-sm">Reject</button>
                         </div>
+                        }
                     </div>
                 }
             }
