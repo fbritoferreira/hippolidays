@@ -5,71 +5,63 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using hippolidays.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace hippolidays.Pages
 {
     public class ApproveModel : PageModel
     {
+        private static List<Request> Requests;
+        private static List<RequestStatus> RequestStatuses = new List<RequestStatus>();
+        private static List<Request> allRequests = new List<Request>();
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
         public Dictionary<string, object> viewData = new Dictionary<string, object>();
 
-        public void OnGet(string? filter)
-        {
-            // <-- mock data -->
-            List<Dictionary<string, object>> requestsData = new List<Dictionary<string, object>>();
-            Dictionary<string, object> requestA = new Dictionary<string, object>
-            {
-                { "request_status", "approved"},
-                { "user_name", "Hal"},
-                { "request_type_id", "333"},
-                { "start_date", new DateTime(2023, 1, 2)},
-                { "end_date", new DateTime(2023, 1, 10)}
-            };
-            Dictionary<string, object> requestB = new Dictionary<string, object>
-            {
-                { "request_status", "pending"},
-                { "user_name", "Hal"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 3)},
-                { "end_date", new DateTime(2023, 1, 14)}
-            };
-            Dictionary<string, object> requestC = new Dictionary<string, object>
-            {
-                { "request_status", "rejected"},
-                { "user_name", "Hal"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 10)},
-                { "end_date", new DateTime(2023, 1, 17)}
-            };
-            Dictionary<string, object> requestD = new Dictionary<string, object>
-            {
-                { "request_status", "pending"},
-                { "user_name", "Hal"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 8)},
-                { "end_date", new DateTime(2023, 1, 12)}
-            };
-            Dictionary<string, object> requestE = new Dictionary<string, object>
-            {
-                { "request_status", "cancelled"},
-                { "user_name", "Hal"},
-                { "request_type_id", "334"},
-                { "start_date", new DateTime(2023, 1, 8)},
-                { "end_date", new DateTime(2023, 1, 12)}
-            };
-            requestsData.Add(requestA);
-            requestsData.Add(requestB);
-            requestsData.Add(requestC);
-            requestsData.Add(requestD);
-            requestsData.Add(requestE);
-            // <-- mock data -->
+        private readonly hippolidays.Data.ApplicationDbContext _context;
 
-            if (!string.IsNullOrEmpty(filter))
+        public ApproveModel(hippolidays.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
+
+        public async void OnGet(string? filter)
+        {
+            viewData.Add("requests", null);
+            Requests = new List<Request>();
+
+            if (_context.Request != null)
             {
-                requestsData = requestsData.FindAll(request => (string)request["request_status"] == filter);
+               allRequests = await _context.Request.ToListAsync();
             }
 
-            viewData.Add("requests", requestsData);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            foreach (var item in allRequests)
+                {
+                   var result = await _context.RequestStatus.Where(item => item.ApplicationUser.Team_Name == user.Team_Name).ToListAsync();
+                   
+                        foreach (var status in result)
+                        {
+                            if (item.Request_Id == status.Request?.Request_Id)
+                            {
+                        if (status.Status == filter)
+                        {
+                            Requests.Add(item);
+                        } else if (string.IsNullOrEmpty(filter))
+                        {
+                            Requests.Add(item);
+                        }
+
+                    }
+                }
+            }
             viewData.Add("filter", filter);
+            viewData["requests"] = Requests;
+
         }
     }
 }
