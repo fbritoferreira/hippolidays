@@ -1,6 +1,4 @@
-﻿@*@page
-@model DefaultModel*@
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using Models
 @inject UserManager<ApplicationUser> UserManager
 
@@ -51,12 +49,10 @@
                             {
 
                                 var user = Model.calendar["currentUser"];
-                                if (request.ApplicationUser?.Team_Name == user.Team_Name)
+                                if (request.ApplicationUser?.Team_Name == user?.Team_Name)
                                 {
-
                                     <div class="request pending">@request.ApplicationUser?.Name</div>
                                 }
-
                         }
 
                     </div>
