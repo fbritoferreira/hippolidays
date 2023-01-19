@@ -73,7 +73,7 @@ namespace hippolidays.Pages.Requests
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Calendar");
         }
     }
 }

@@ -13,18 +13,20 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <h1 align="center">@ViewData["Title"]</h1>
     <div class="row">
-        <div class="col-md-6" align="left">
-            <section>
-                <p class="approved row-md-2">Approved</p>
-                <p class="pending row-md-2">Pending</p>
-                <p class="updated row-md-2">Updated</p>
-            </section>
+        <div class="col-md-6">
+            @await Component.InvokeAsync("Calendar")
         </div>
-        <div class="col-md-6" align="left">
+        <div class="col-md-3" align="right">
             <section>
                 <div id="piechart" style="width: 900px; height: 500px;"></div>
+            </section>
+        </div>
+        <div class="col-md-3" align="left">
+            <section>
+                <p class="approved row-md-1">Approved</p>
+                <p class="pending row-md-1">Pending</p>
+                <p class="updated row-md-1">Updated</p>
             </section>
         </div>
     </div>
@@ -35,10 +37,6 @@ else
 
 }
 
-<div>
-    @await Component.InvokeAsync("Calendar")
-</div>
-
 <script type="text/javascript">google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
@@ -47,9 +45,9 @@ else
         //mock data grab Users holiday instead of hardcoded data
         var data = google.visualization.arrayToDataTable([
             ['Option', 'Day'],
-            ['Taken', 11],
-            ['Pending', 2],
-            ['Available', 2]
+            ['Taken', @Model.approved],
+            ['Pending', @Model.pending],
+            ['Available', @Model.available]
         ]);
 
         var options = {

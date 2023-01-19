@@ -15,6 +15,11 @@ namespace hippolidays.Pages
 	public class CalendarModel : PageModel
     {
         public Dictionary<string, object?> calendar = new Dictionary<string, object>();
+
+        public int approved;
+        public int pending;
+        public int available;
+
         private readonly hippolidays.Data.ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -99,6 +104,29 @@ namespace hippolidays.Pages
             this.calendar.Add("previous_month", CurrentMonth.Date.AddMonths(-1));
             this.calendar.Add("next_month", CurrentMonth.Date.AddMonths(1));
             this.calendar.Add("currentUser", CurrentUser);
+
+            if (CurrentUser != null)
+            {
+                foreach (var req in Request)
+
+                {
+                    if (req?.ApplicationUser?.Id == CurrentUser.Id)
+                    {
+                        if (req.RequestStatus.Status == "approved")
+                        {
+                            var difference = req.End_Date - req.Start_Date;
+                            approved = approved + difference.Days;
+
+                        }
+                        else if (req.RequestStatus.Status == "pending")
+                        {
+                            var difference = req.End_Date - req.Start_Date;
+                            pending = pending + difference.Days;
+                        }
+                    }
+                }
+                available = CurrentUser.HolidaysRemaining - pending;
+            }
         }
     }
 }
