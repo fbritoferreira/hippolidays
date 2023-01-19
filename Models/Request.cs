@@ -14,10 +14,12 @@ namespace hippolidays.Models
 
         public virtual ApplicationUser? ApplicationUser { get; set; }
 
- 
         public virtual RequestType? RequestType { get; set; }
 
-        
+        public int? RequestStatusID { get; set; }
+        [ForeignKey("RequestStatusID")]
+        public virtual RequestStatus? RequestStatus { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime Start_Date { get; set; }
 
