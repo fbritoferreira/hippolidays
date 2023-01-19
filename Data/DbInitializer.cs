@@ -47,12 +47,12 @@ namespace hippolidays.Data
             }
             var requestStatuses = new RequestStatus[]
             {
-                new RequestStatus{ApplicationUser=applicationUsers[0],Request=requests[0],Status="Approved",Reason=":thumbs-up:",ActionDate=DateTime.Parse("2023-01-07")},
-                new RequestStatus{ApplicationUser=applicationUsers[1],Request=requests[1],Status="Denied",Reason="too busy at work",ActionDate=DateTime.Parse("2023-01-07")},
-                new RequestStatus{ApplicationUser=applicationUsers[2],Request=requests[2],Status="Pending",Reason="",ActionDate=DateTime.Parse("2023-01-07")},
-                new RequestStatus{ApplicationUser=applicationUsers[3],Request=requests[3],Status="Approved",Reason="enjoy!",ActionDate=DateTime.Parse("2023-01-07")},
-                new RequestStatus{ApplicationUser=applicationUsers[4],Request=requests[4],Status="Pending",Reason="",ActionDate=DateTime.Parse("2023-01-07")},
-                new RequestStatus{ApplicationUser=applicationUsers[5],Request=requests[5],Status="Denied",Reason="we need you in",ActionDate=DateTime.Parse("2023-01-07")},
+                new RequestStatus{ApplicationUser=applicationUsers[0],Request=requests[0],Status="approved",Reason=":thumbs-up:",ActionDate=DateTime.Parse("2023-01-07")},
+                new RequestStatus{ApplicationUser=applicationUsers[1],Request=requests[1],Status="rejected",Reason="too busy at work",ActionDate=DateTime.Parse("2023-01-07")},
+                new RequestStatus{ApplicationUser=applicationUsers[2],Request=requests[2],Status="pending",Reason="",ActionDate=DateTime.Parse("2023-01-07")},
+                new RequestStatus{ApplicationUser=applicationUsers[3],Request=requests[3],Status="approved",Reason="enjoy!",ActionDate=DateTime.Parse("2023-01-07")},
+                new RequestStatus{ApplicationUser=applicationUsers[4],Request=requests[4],Status="rejected",Reason="",ActionDate=DateTime.Parse("2023-01-07")},
+                new RequestStatus{ApplicationUser=applicationUsers[5],Request=requests[5],Status="pending",Reason="we need you in",ActionDate=DateTime.Parse("2023-01-07")},
             };
             context.RequestStatus.AddRange(requestStatuses);
 
