@@ -39,9 +39,6 @@
             <li class="nav-item @GetFilterClass("rejected")">
                 <a class="nav-link" asp-route-filter="rejected" method="post">Rejected</a>
             </li>
-            <li class="nav-item @GetFilterClass("cancelled")">
-                <a class="nav-link" asp-route-filter="cancelled" method="post">Cancelled</a>
-            </li>
         </ul>
 
         <div class="requests-container">
@@ -59,11 +56,14 @@
                         </div>
                         @if (request.RequestStatus.Status != "approved" && request.RequestStatus.Status != "rejected")
                         {
-                        <div class="col-3 text-center my-auto">
-                            <a asp-page="Requests/Edit" asp-route-id="@request.Request_Id">
-                                <button class="btn btn-outline-primary btn-sm">Edit</button>
-                            </a>
-                        </div>
+                            <div class="col-3 text-center my-auto">
+                                <a asp-page="Requests/Edit" class="btn btn-outline-primary btn-sm" asp-route-id="@request.Request_Id">
+                                    Edit
+                                </a>
+                                <a asp-page="Requests/Delete" class="btn btn-outline-primary btn-sm" asp-route-id="@request.Request_Id">
+                                    Cancel
+                                </a>
+                            </div>
                         }
                     </div>
                 }
