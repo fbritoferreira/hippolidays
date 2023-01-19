@@ -66,7 +66,7 @@ namespace hippolidays.Pages.Requests
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("/Holidays");
         }
 
         private bool RequestExists(int id)

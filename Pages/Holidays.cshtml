@@ -1,0 +1,74 @@
+﻿@page
+@model hippolidays.Pages.HolidaysModel
+@{
+}
+
+@functions{
+    private string GetFilterClass(string filter)
+    {
+        if (Model.viewData["filter"] == null && filter == "all")
+        {
+            return "active";
+        }
+        return filter == (string)Model.viewData["filter"] ? "active" : "";
+    }
+
+    private string GetUpper(string status)
+    {
+        return status.ToUpper();
+    }
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">
+        My Holidays
+    </h1>
+
+    <div class="container">
+        <ul class="nav justify-content-center navbar-dark">
+            <li class="nav-item @GetFilterClass("all")">
+                <a class="nav-link" asp-route-filter="" method="post">All</a>
+            </li>
+            <li class="nav-item @GetFilterClass("approved")">
+                <a class="nav-link" asp-route-filter="approved" method="post">Approved</a>
+            </li>
+            <li class="nav-item @GetFilterClass("pending")">
+                <a class="nav-link" asp-route-filter="pending" method="post">Pending</a>
+            </li>
+            <li class="nav-item @GetFilterClass("rejected")">
+                <a class="nav-link" asp-route-filter="rejected" method="post">Rejected</a>
+            </li>
+            <li class="nav-item @GetFilterClass("cancelled")">
+                <a class="nav-link" asp-route-filter="cancelled" method="post">Cancelled</a>
+            </li>
+        </ul>
+
+        <div class="requests-container">
+            @if ((List<Models.Request>)Model.viewData["requests"] != null)
+            {
+                @foreach (Models.Request request in (List<Models.Request>)Model.viewData["requests"])
+                {
+                    <div class="row request">
+                        <div class="col-9">
+                            <div>@GetUpper(request?.RequestStatus?.Status)</div>
+                            <div><b>Employee: </b>@request?.ApplicationUser?.Name</div>
+                            <div><b>Type of leave: </b>@GetUpper(request?.RequestType?.Type)</div>
+                            <div><b>Reason for leave: </b>@request?.RequestType?.Reason</div>
+                            <div><b>Dates: </b>@String.Format("{0:ddd d MMMM}", request.Start_Date) - @String.Format("{0:ddd d MMMM}", request.End_Date)</div>
+                        </div>
+                        @if (request.RequestStatus.Status != "approved" && request.RequestStatus.Status != "rejected")
+                        {
+                        <div class="col-3 text-center my-auto">
+                            <a asp-page="Requests/Edit" asp-route-id="@request.Request_Id">
+                                <button class="btn btn-outline-primary btn-sm">Edit</button>
+                            </a>
+                        </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</div>
