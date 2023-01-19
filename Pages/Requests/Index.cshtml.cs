@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using hippolidays.Data;
 using hippolidays.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hippolidays.Pages.Requests
 {
+    [Authorize(Roles = "Manager")]
     public class IndexModel : PageModel
     {
         private readonly hippolidays.Data.ApplicationDbContext _context;
