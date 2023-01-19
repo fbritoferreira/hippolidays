@@ -2,12 +2,14 @@
 @using hippolidays.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@model IndexModel
+@model CalendarModel
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 @{
     ViewData["Title"] = "Home page";
 }
+
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -33,8 +35,11 @@ else
 
 }
 
-<script type="text/javascript">
-google.charts.load('current', { 'packages': ['corechart'] });
+<div>
+    @await Component.InvokeAsync("Calendar")
+</div>
+
+<script type="text/javascript">google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -60,5 +65,4 @@ google.charts.load('current', { 'packages': ['corechart'] });
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
-    }
-</script>
+    }</script>

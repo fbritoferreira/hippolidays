@@ -8,18 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using hippolidays.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace hippolidays.Pages
 {
 	public class CalendarModel : PageModel
     {
-        public Dictionary<string, object> calendar = new Dictionary<string, object>();
-
+        public Dictionary<string, object?> calendar = new Dictionary<string, object>();
         private readonly hippolidays.Data.ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CalendarModel(hippolidays.Data.ApplicationDbContext context)
+        public CalendarModel(hippolidays.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public new IList<Request> Request { get; set; } = default!;
@@ -27,6 +29,7 @@ namespace hippolidays.Pages
 
         public async void OnGet(string? calendar)
         {
+            ApplicationUser? CurrentUser = await _userManager.GetUserAsync(User);
             DateTime CurrentMonth = (calendar != null) ? DateTime.Parse(calendar): DateTime.Today.Date;
 
             if (_context.Request != null)
@@ -95,6 +98,7 @@ namespace hippolidays.Pages
             this.calendar.Add("current_month", CurrentMonth);
             this.calendar.Add("previous_month", CurrentMonth.Date.AddMonths(-1));
             this.calendar.Add("next_month", CurrentMonth.Date.AddMonths(1));
+            this.calendar.Add("currentUser", CurrentUser);
         }
     }
 }
