@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using hippolidays.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hippolidays.Pages
 {
+    [Authorize]
 	public class CalendarModel : PageModel
     {
         public Dictionary<string, object?> calendar = new Dictionary<string, object>();
