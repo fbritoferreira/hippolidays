@@ -48,9 +48,12 @@ namespace hippolidays.Pages.Requests
             {
                 return Page();
             }
-            var emptyRequestStatus = new RequestStatus();
-
             var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser.HolidaysRemaining == 0)
+            {
+                return Page();
+            }
+            var emptyRequestStatus = new RequestStatus();
 
             Request.ApplicationUser = currentUser;
 
