@@ -56,7 +56,7 @@
                                 if (request.ApplicationUser?.Team_Name == user?.Result?.Team_Name)
                                 {
 
-                                     <div class="request pending">@request.ApplicationUser?.Name</div>
+                                     <div class="request @request.RequestStatus.Status">@request.ApplicationUser?.Name</div>
                                 }
                          
                         }
