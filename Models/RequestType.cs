@@ -14,6 +14,7 @@ namespace hippolidays.Models
         public string? Type { get; set; }
 
         [Display(Name = "Leave Reason")]
+        [MaxLength(50)]
         public string? Reason { get; set; }
 
     }

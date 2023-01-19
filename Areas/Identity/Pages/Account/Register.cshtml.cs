@@ -147,6 +147,7 @@ namespace hippolidays.Areas.Identity.Pages.Account
                 user.Team_Name = Input.Team_Name;
                 user.Name = Input.Name;
                 user.Holidays = Int32.Parse(Input.Holidays);
+                user.HolidaysRemaining = user.Holidays;
                 user.Service_Days = Int32.Parse(Input.Service_Days);
                 user.Shift_Pattern = Input.Shift_Pattern;
      

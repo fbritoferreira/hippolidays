@@ -1,0 +1,20 @@
+﻿body {
+}
+
+.active {
+    border-bottom: 2px solid rgb(63,136,244);
+}
+
+.requests-container {
+    width: 50vw;
+    margin: auto;
+    margin-top: 2vh;
+}
+
+.request {
+    text-align: left;
+    border: 2px solid black;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    padding: 10px;
+}
