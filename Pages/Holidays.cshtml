@@ -57,11 +57,14 @@
                             <div><b>Reason for leave: </b>@request?.RequestType?.Reason</div>
                             <div><b>Dates: </b>@String.Format("{0:ddd d MMMM}", request.Start_Date) - @String.Format("{0:ddd d MMMM}", request.End_Date)</div>
                         </div>
+                        @if (request.RequestStatus.Status != "approved" && request.RequestStatus.Status != "rejected")
+                        {
                         <div class="col-3 text-center my-auto">
                             <a asp-page="Requests/Edit" asp-route-id="@request.Request_Id">
-                                <button value="approved" name="status" class="btn btn-outline-primary btn-sm">Edit</button>
+                                <button class="btn btn-outline-primary btn-sm">Edit</button>
                             </a>
                         </div>
+                        }
                     </div>
                 }
             }
