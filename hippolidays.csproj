@@ -42,5 +42,9 @@
     <Folder Include="Pages\Shared\Components\" />
     <Folder Include="Pages\Shared\Components\Calendar\" />
     <Folder Include="ViewComponents\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\" />
   </ItemGroup>
 </Project>
