@@ -57,6 +57,11 @@ namespace hippolidays.Pages
             var result = _context.Request.SingleOrDefault(b => b.Request_Id == id);
             if (result != null)
             {
+               if (result.ApplicationUser.HolidaysRemaining <= 0)
+                {
+                    return Page();
+                }
+
                result.RequestStatus.Status = status;
                result.ApplicationUser.HolidaysRemaining = result.ApplicationUser.HolidaysRemaining - (result.End_Date - result.Start_Date).Days;
                await _context.SaveChangesAsync();

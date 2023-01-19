@@ -49,7 +49,7 @@ namespace hippolidays.Pages.Requests
                 return Page();
             }
             var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser.HolidaysRemaining == 0)
+            if (currentUser.HolidaysRemaining <= 0)
             {
                 return Page();
             }
