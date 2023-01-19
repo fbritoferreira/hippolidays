@@ -1,6 +1,23 @@
 ﻿body {
 }
-.calendar-container {
-    width: 40vw;
-    height: 10vh;
+.calendar{
+    width: 30vw;
+
+}
+.pie-chart {
+    padding-top: 3vh;
+}
+
+.approved {
+    background: rgba(138,201,38,0.3);
+    border-radius: 0.25rem;
+    padding: 10px;
+    width: 100px;
+}
+
+.pending {
+    background: rgba(255,202,58,0.3);
+    border-radius: 0.25rem;
+    padding: 10px;
+    width: 100px;
 }

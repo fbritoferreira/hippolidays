@@ -14,19 +14,20 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8 calendar">
             @await Component.InvokeAsync("Calendar")
+            <div class="row justify-content-center">
+                <div class="col-sm-3">
+                    <p class="approved">approved</p>
+                </div>
+                <div class="col-sm-3">
+                    <p class="pending">pending</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3" align="right">
+        <div class="col-md-4 pie-chart">
             <section>
-                <div id="piechart" style="width: 900px; height: 500px;"></div>
-            </section>
-        </div>
-        <div class="col-md-3" align="left">
-            <section>
-                <p class="approved row-md-1">Approved</p>
-                <p class="pending row-md-1">Pending</p>
-                <p class="updated row-md-1">Updated</p>
+                <div id="piechart" style="width: 700px; height: 500px;"></div>
             </section>
         </div>
     </div>
@@ -51,12 +52,11 @@ else
         ]);
 
         var options = {
-            title: 'My Holiday',
             pieSliceText: 'label',
             slices: {
-                0: { color: '#01A851' },
+                0: { color: '#42697f' },
                 1: { color: '#E48A01' },
-                2: { color: '#1163B3' }
+                2: { color: '#7A99AC' }
             }
         };
 

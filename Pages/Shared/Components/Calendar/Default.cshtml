@@ -22,10 +22,6 @@
 }
 <div class="text-center">
 
-    <h1 class="display-4">
-        Calendar
-    </h1>
-
     <div class="btn-toolbar" role="toolbar">
         <a asp-route-calendar="@Model.calendar["previous_month"]" method="post">
             <p class="btn btn-primary">@String.Format("{0:MMMM}", Model.calendar["previous_month"])</p>
