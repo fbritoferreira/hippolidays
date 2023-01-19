@@ -19,6 +19,7 @@ namespace hippolidays.Models
         public string? Status { get; set; }
 
         [Required]
+        [MaxLength(50)]
         public string? Reason { get; set; }
 
         [Required]

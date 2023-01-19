@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hippolidays.Data;
 
@@ -10,9 +11,11 @@ using hippolidays.Data;
 namespace hippolidays.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230118123622_AddMaxLengthToReason")]
+    partial class AddMaxLengthToReason
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,9 +176,6 @@ namespace hippolidays.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Holidays")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("HolidaysRemaining")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("LockoutEnabled")
