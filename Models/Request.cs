@@ -2,6 +2,7 @@
 using hippolidays.Areas.Identity.Pages.Account;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace hippolidays.Models
 {
@@ -11,10 +12,10 @@ namespace hippolidays.Models
         [Key]
         public int Request_Id { get; set; }
 
-        public ApplicationUser? ApplicationUser { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
 
-
-        public RequestType? RequestType { get; set; }
+ 
+        public virtual RequestType? RequestType { get; set; }
 
         
         [DataType(DataType.Date)]

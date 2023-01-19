@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hippolidays.Data;
 
@@ -10,9 +11,11 @@ using hippolidays.Data;
 namespace hippolidays.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230115190050_RequestStatusVirtual1")]
+    partial class RequestStatusVirtual1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,18 +282,21 @@ namespace hippolidays.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Request_Id")
+                    b.Property<int>("RequestID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserID")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("ID");
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("Request_Id");
+                    b.HasIndex("RequestID");
 
                     b.ToTable("RequestStatus");
                 });
@@ -388,7 +394,7 @@ namespace hippolidays.Data.Migrations
 
                     b.HasOne("hippolidays.Models.Request", "Request")
                         .WithMany()
-                        .HasForeignKey("Request_Id")
+                        .HasForeignKey("RequestID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
