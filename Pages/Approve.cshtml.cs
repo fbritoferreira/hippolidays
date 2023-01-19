@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using hippolidays.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace hippolidays.Pages
 {
+    [Authorize(Roles = "Manager")]
     public class ApproveModel : PageModel
     {
         private static List<Request>? Requests;
