@@ -74,10 +74,14 @@ namespace hippolidays.Pages
 
             foreach (var item in Request)
             {
-                if (item.RequestStatus.Status == "rejected")
+                if (item.RequestStatus != null)
                 {
-                    continue;
+                  if (item.RequestStatus.Status == "rejected")
+                  {
+                        continue;
+                  }
                 }
+              
                 foreach (List<Dictionary<string,object>> week in data)
                 {
                     foreach (Dictionary<string, object> day in week)
