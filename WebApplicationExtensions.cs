@@ -5,22 +5,23 @@ namespace hippolidays
 {
     public static class WebApplicationExtensions
     {
-        public static async Task<WebApplication> CreateRoles(this WebApplication app, IConfiguration configuration)
+        public static async Task<WebApplication> CreateRoles(this WebApplication webApp, IConfiguration configuration)
         {
-            using var scope = app.Services.CreateScope();
-            var roleManager = (RoleManager<IdentityRole>?)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
-            string[] roles = { "Manager", "Employee" };
+            using var serviceScope = webApp.Services.CreateScope();
+            var manager = (RoleManager<IdentityRole>?)serviceScope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
 
-            foreach (var role in roles)
+            string[] authRoles = { "Manager", "Employee" };
+
+            foreach (var item in authRoles)
             {
-                if (roleManager is not null)
+                if (manager is not null)
                 {
-                    if (!await roleManager.RoleExistsAsync(role))
-                        await roleManager.CreateAsync(new IdentityRole(role));
+                    if (!await manager.RoleExistsAsync(item))
+                        await manager.CreateAsync(new IdentityRole(item));
                 }
             }
 
-            return app;
+            return webApp;
         }
     }
 }
