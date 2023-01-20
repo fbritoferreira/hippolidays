@@ -1,10 +1,66 @@
 ﻿@page
-@model IndexModel
+@using hippolidays.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model CalendarModel
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="row">
+        <div class="col-md-8 calendar">
+            @await Component.InvokeAsync("Calendar")
+            <div class="row justify-content-center">
+                <div class="col-sm-3">
+                    <p class="approved">approved</p>
+                </div>
+                <div class="col-sm-3">
+                    <p class="pending">pending</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pie-chart">
+            <section>
+                <div id="piechart" style="width: 700px; height: 500px;"></div>
+            </section>
+        </div>
+    </div>
+}
+else
+{
+    Response.Redirect("/Identity/Account/Login");
+
+}
+
+<script type="text/javascript">google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        //mock data grab Users holiday instead of hardcoded data
+        var data = google.visualization.arrayToDataTable([
+            ['Option', 'Day'],
+            ['Taken', @Model.approved],
+            ['Pending', @Model.pending],
+            ['Available', @Model.available]
+        ]);
+
+        var options = {
+            pieSliceText: 'label',
+            slices: {
+                0: { color: '#42697f' },
+                1: { color: '#E48A01' },
+                2: { color: '#7A99AC' }
+            }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }</script>
