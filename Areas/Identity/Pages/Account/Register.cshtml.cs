@@ -118,6 +118,7 @@ namespace hippolidays.Areas.Identity.Pages.Account
             [EnumDataType(typeof(Pattern))]
             public Pattern Shift_Pattern { get; set; }
 
+            [Required]
             [Display(Name = "Role")]
             public string Role { get; set; }
 

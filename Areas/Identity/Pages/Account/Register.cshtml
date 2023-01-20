@@ -30,24 +30,29 @@
             <div class="form-floating mb-3">
                 <input asp-for="Input.Team_Name" class="form-control" aria-required="true" placeholder="Example" />
                 <label asp-for="Input.Team_Name">Team Name</label>
+                <span asp-validation-for="Input.Team_Name" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Name" class="form-control" aria-required="true" placeholder="Example" />
                 <label asp-for="Input.Name">Name</label>
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Holidays" class="form-control" aria-required="true" placeholder="25" />
                 <label asp-for="Input.Holidays">Allocated Holiday</label>
+                <span asp-validation-for="Input.Holidays" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Service_Days" class="form-control" aria-required="true" placeholder="4" />
                 <label asp-for="Input.Service_Days">Allocated Service Days</label>
+                <span asp-validation-for="Input.Service_Days" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <select asp-for="Input.Shift_Pattern" class="form-control" aria-required="true" asp-items="Html.GetEnumSelectList<Pattern>()">
                     <option selected="selected" value="">Please select</option>
                 </select>
                 <label asp-for="Input.Shift_Pattern">Shift Pattern</label>
+                <span asp-validation-for="Input.Shift_Pattern" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <select asp-for="Input.Role" class="form-control" aria-required="true">
@@ -55,6 +60,7 @@
                     <option asp-for="Input.Role" value="Employee">Employee</option>
                 </select>
                 <label asp-for="Input.Role">Role</label>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
             </div>
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary main-colour">Register</button>

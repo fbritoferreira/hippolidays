@@ -10,12 +10,6 @@ namespace hippolidays.Models
         public int ID { get; set; }
 
         [Required]
-        public virtual Request? Request { get; set; }
-
-        [Required]
-        public virtual ApplicationUser? ApplicationUser { get; set; }
-
-        [Required]
         public string? Status { get; set; }
 
         [Required]
@@ -23,8 +17,16 @@ namespace hippolidays.Models
         public string? Reason { get; set; }
 
         [Required]
+        [Display(Name = "Action Date")]
         [DataType(DataType.Date)]
         public DateTime ActionDate { get; set; }
+
+        [Required]
+        public virtual Request? Request { get; set; }
+
+        [Required]
+        public virtual ApplicationUser? ApplicationUser { get; set; }
+
 
     }
 }

@@ -8,12 +8,16 @@ namespace hippolidays.Models
     public class ApplicationUser : IdentityUser
 
     {
-        public string? Team_Name { get; set; }
+        [Required]
+        public string Team_Name { get; set; } = "Default";
 
-        public string? Name { get; set; }
+        [Required]
+        public string Name { get; set; } = "Anonymous";
 
+        [Required]
         public int Holidays { get; set; }
 
+        [Required]
         public int HolidaysRemaining { get; set; }
 
         public int Service_Days { get; set; }
