@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using hippolidays.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hippolidays.Pages
 {
+    [Authorize]
     public class HolidaysModel : PageModel
     {
         private static List<Request>? Requests;
