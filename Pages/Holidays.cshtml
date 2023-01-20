@@ -56,7 +56,12 @@
                     {
                         <div class="col-3 text-center my-auto">
                             <a asp-page="Requests/Edit" asp-route-id="@item.Request_Id">
-                                <button class="btn btn-outline-primary btn-sm">Edit</button>
+                                <a asp-page="Requests/Edit" class="btn btn-outline-primary btn-sm" asp-route-id="@item.Request_Id">
+                                    Edit
+                                </a>
+                                <a asp-page="Requests/Delete" class="btn btn-outline-primary btn-sm" asp-route-id="@item.Request_Id">
+                                    Cancel
+                                </a>
                             </a>
                         </div>
                         }

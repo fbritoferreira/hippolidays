@@ -17,12 +17,12 @@ namespace hippolidays.Data
             }
             var requestTypes = new RequestType[]
             {
-                new RequestType{Type="annual",Reason="wanna go on holiday"},
-                new RequestType{Type="special",Reason="making up for lost time"},
-                new RequestType{Type="annual",Reason="volunteering with my fav charity"},
-                new RequestType{Type="annual",Reason="Malia with the bois"},
-                new RequestType{Type="annual",Reason="I was up till 4am resolving bugs, give me my life back"},
-                new RequestType{Type="special",Reason="giving back to the local community"},
+                new RequestType{Type="annual",Reason="Want to go on holiday"},
+                new RequestType{Type="special",Reason="Time off"},
+                new RequestType{Type="annual",Reason="Volunteering for charity"},
+                new RequestType{Type="annual",Reason="Malia with friends"},
+                new RequestType{Type="annual",Reason="Need time off"},
+                new RequestType{Type="special",Reason="Giving back to the local community"},
             };
             context.RequestType.AddRange(requestTypes);
 
