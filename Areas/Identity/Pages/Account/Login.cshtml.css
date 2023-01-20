@@ -5,3 +5,19 @@
     color: #7A99AC;
     font-size: 6vw;
 }
+.image {
+    width: 12vw;
+    height: 18vh;
+}
+
+.container-title {
+    margin: 1rem;
+    padding: 2rem 2rem;
+    text-align: center;
+}
+
+.items {
+    display: inline-block;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
