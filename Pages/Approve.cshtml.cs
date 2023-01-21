@@ -34,7 +34,10 @@ namespace hippolidays.Pages
         {
             Requests = new List<Request>();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var teamRequests = await _context.Request.Where(item => item.ApplicationUser.Team_Name == user.Team_Name && item.ApplicationUser.Id != user.Id).OrderByDescending(req => req.Request_Id).ToListAsync();
+            var teamRequests = await _context.Request
+                .Where(item => item.ApplicationUser.Team_Name == user.Team_Name && item.ApplicationUser.Id != user.Id)
+                .OrderByDescending(req => req.Request_Id)
+                .ToListAsync();
 
             foreach (var item in teamRequests)
             {
