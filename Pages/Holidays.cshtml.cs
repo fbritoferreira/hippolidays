@@ -34,19 +34,16 @@ namespace hippolidays.Pages
         {
             Requests = new List<Request>();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var requests = await _context.Request.Where(item => item.ApplicationUser == user).OrderByDescending(req => req.Request_Id).ToListAsync();
 
-            foreach (var item in requests)
-            {
-                if (item.RequestStatus?.Status == filter)
-                {
-                    Requests.Add(item);
-                }
-                else if (string.IsNullOrEmpty(filter))
-                {
-                    Requests.Add(item);
-                }
-            }
+            var query = from item in _context.Request
+                        where
+                            (filter != null ? item.RequestStatus.Status == filter : true) &&
+                            item.ApplicationUser.Id == user.Id
+                        orderby item.Request_Id descending
+                        select item;
+
+            Requests = await query.ToListAsync();
+
             viewData.Add("filter", filter);
             viewData.Add("requests", Requests);
 
