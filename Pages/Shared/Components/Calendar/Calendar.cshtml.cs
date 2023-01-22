@@ -125,13 +125,13 @@ namespace hippolidays.Pages
                         if (req.RequestStatus.Status == "approved")
                         {
                             var difference = req.End_Date - req.Start_Date;
-                            approved = approved + difference.Days;
+                            approved = approved + difference.Days + 1;
 
                         }
                         else if (req.RequestStatus.Status == "pending")
                         {
                             var difference = req.End_Date - req.Start_Date;
-                            pending = pending + difference.Days;
+                            pending = pending + difference.Days + 1;
                         }
                     }
                 }

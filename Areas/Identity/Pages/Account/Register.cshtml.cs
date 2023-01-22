@@ -112,6 +112,7 @@ namespace hippolidays.Areas.Identity.Pages.Account
             [Display(Name = "Allocated Holidays")]
             public string Holidays { get; set; }
 
+            [Required]
             [Display(Name = "Allocated Service Days")]
             public string Service_Days { get; set; }
 

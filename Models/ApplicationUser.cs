@@ -20,6 +20,7 @@ namespace hippolidays.Models
         [Required]
         public int HolidaysRemaining { get; set; }
 
+        [Required]
         public int Service_Days { get; set; }
 
         [EnumDataType(typeof(Pattern))]
