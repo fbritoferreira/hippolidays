@@ -10,6 +10,7 @@ namespace hippolidays.Models
         [Key]
         public int RequestType_Id { get; set; }
 
+        [Required]
         [Display(Name = "Leave Type")]
         public string? Type { get; set; }
 
