@@ -30,23 +30,21 @@ namespace hippolidays.Pages
             _userManager = userManager;
         }
 
-        public async void OnGet(string? filter)
+        public async void OnGet(string? filter = null)
         {
             Requests = new List<Request>();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var teamRequests = await _context.Request.Where(item => item.ApplicationUser.Team_Name == user.Team_Name && item.ApplicationUser.Id != user.Id).OrderByDescending(req => req.Request_Id).ToListAsync();
 
-            foreach (var item in teamRequests)
-            {
-                if (item.RequestStatus?.Status == filter)
-                {
-                    Requests.Add(item);
-                }
-                else if (string.IsNullOrEmpty(filter))
-                {
-                    Requests.Add(item);
-                }
-            }
+            var query = from item in _context.Request
+                        where
+                            (filter != null ? item.RequestStatus.Status == filter : true) &&
+                            item.ApplicationUser.Team_Name == user.Team_Name &&
+                            item.ApplicationUser.Id != user.Id
+                        orderby item.Request_Id descending
+                        select item;
+
+            Requests = await query.ToListAsync();
+
             viewData.Add("filter", filter);
             viewData.Add("requests", Requests);
 
