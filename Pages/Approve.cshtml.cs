@@ -67,7 +67,10 @@ namespace hippolidays.Pages
                 {
                     result.RequestStatus.Status = status;
                     result.RequestStatus.ActionDate = DateTime.Today.Date;
-                    result.ApplicationUser.HolidaysRemaining = result.ApplicationUser.HolidaysRemaining - (result.End_Date - result.Start_Date).Days - 1;
+                    if (status == "approved")
+                    {
+                        result.ApplicationUser.HolidaysRemaining = result.ApplicationUser.HolidaysRemaining - (result.End_Date - result.Start_Date).Days - 1;
+                    }
                     await _context.SaveChangesAsync();
                 }           
             }

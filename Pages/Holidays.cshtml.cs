@@ -50,24 +50,5 @@ namespace hippolidays.Pages
             viewData.Add("filter", filter);
 
         }
-        
-        public async Task<IActionResult> OnPostStatusUpdate(int? id, string? status)
-        {
-            var result = _context.Request.SingleOrDefault(b => b.Request_Id == id);
-            if (result != null && result.ApplicationUser != null)
-            {
-               if (result.ApplicationUser.HolidaysRemaining <= 0)
-                {
-                    return Page();
-                }
-               if (result.RequestStatus != null)
-                {
-                   result.RequestStatus.Status = status;
-                   result.ApplicationUser.HolidaysRemaining = result.ApplicationUser.HolidaysRemaining - (result.End_Date - result.Start_Date).Days;
-                   await _context.SaveChangesAsync();
-                }
-            }
-            return RedirectToPage("./Approve");
-        }
     }
 }
