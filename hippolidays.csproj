@@ -12,9 +12,6 @@
     <None Remove="Microsoft.EntityFrameworkCore.Proxies" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Pages\Shared\Components\" />
     <None Remove="Pages\Shared\Components\Calender\" />
     <None Remove="ViewComponents\" />
