@@ -37,8 +37,7 @@ namespace hippolidays.Pages
             var query = from item in _context.Request
                         where
                             (filter != null ? item.RequestStatus.Status == filter : true) &&
-                            item.ApplicationUser.Team_Name == user.Team_Name &&
-                            item.ApplicationUser.Id != user.Id
+                            item.ApplicationUser.Id == user.Id
                         orderby item.Request_Id descending
                         select item;
 
