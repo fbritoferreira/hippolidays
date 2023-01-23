@@ -16,7 +16,7 @@ namespace hippolidays.Pages
     [Authorize]
     public class HolidaysModel : PageModel
     {
-        private static List<Request>? Requests;
+        public IList<Request> Requests { get; set; } = default!;
 
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -34,7 +34,6 @@ namespace hippolidays.Pages
         {
             Requests = new List<Request>();
             var user = await _userManager.GetUserAsync(HttpContext.User);
-
             var query = from item in _context.Request
                         where
                             (filter != null ? item.RequestStatus.Status == filter : true) &&
@@ -45,25 +44,7 @@ namespace hippolidays.Pages
             Requests = await query.ToListAsync();
 
             viewData.Add("filter", filter);
-            viewData.Add("requests", Requests);
 
-        }
-        
-        public async Task<IActionResult> OnPostStatusUpdate(int? id, string? status)
-        {
-            var result = _context.Request.SingleOrDefault(b => b.Request_Id == id);
-            if (result != null)
-            {
-               if (result.ApplicationUser.HolidaysRemaining <= 0)
-                {
-                    return Page();
-                }
-
-               result.RequestStatus.Status = status;
-               result.ApplicationUser.HolidaysRemaining = result.ApplicationUser.HolidaysRemaining - (result.End_Date - result.Start_Date).Days;
-               await _context.SaveChangesAsync();
-            }
-            return RedirectToPage("./Approve");
         }
     }
 }

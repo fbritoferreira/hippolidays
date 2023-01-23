@@ -41,7 +41,6 @@ namespace hippolidays.Pages.Requests
         public RequestStatus RequestStatus { get; set; } = default!;
 
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
           if (!ModelState.IsValid || _context.Request == null || Request == null)
@@ -49,7 +48,7 @@ namespace hippolidays.Pages.Requests
                 return Page();
             }
             var currentUser = await _userManager.GetUserAsync(User);
-            if (currentUser.HolidaysRemaining <= 0)
+            if (currentUser == null || currentUser.HolidaysRemaining <= 0)
             {
                 return Page();
             }

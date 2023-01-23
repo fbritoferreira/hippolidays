@@ -112,12 +112,15 @@ namespace hippolidays.Areas.Identity.Pages.Account
             [Display(Name = "Allocated Holidays")]
             public string Holidays { get; set; }
 
+            [Required]
             [Display(Name = "Allocated Service Days")]
             public string Service_Days { get; set; }
 
             [EnumDataType(typeof(Pattern))]
+            [Display(Name = "Shift Pattern")]
             public Pattern Shift_Pattern { get; set; }
 
+            [Required]
             [Display(Name = "Role")]
             public string Role { get; set; }
 

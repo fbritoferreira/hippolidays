@@ -42,32 +42,31 @@
         </ul>
 
         <div class="requests-container">
-            @if ((List<Models.Request>)Model.viewData["requests"] != null)
-            {
-                @foreach (Models.Request request in (List<Models.Request>)Model.viewData["requests"])
+            @foreach (var item in Model.Requests)
                 {
-                    <div class="row request">
-                        <div class="col-9">
-                            <div>@GetUpper(request?.RequestStatus?.Status)</div>
-                            <div><b>Employee: </b>@request?.ApplicationUser?.Name</div>
-                            <div><b>Type of leave: </b>@GetUpper(request?.RequestType?.Type)</div>
-                            <div><b>Reason for leave: </b>@request?.RequestType?.Reason</div>
-                            <div><b>Dates: </b>@String.Format("{0:ddd d MMMM}", request.Start_Date) - @String.Format("{0:ddd d MMMM}", request.End_Date)</div>
-                        </div>
-                        @if (request.RequestStatus.Status != "approved" && request.RequestStatus.Status != "rejected")
-                        {
-                            <div class="col-3 text-center my-auto">
-                                <a asp-page="Requests/Edit" class="btn btn-outline-primary btn-sm" asp-route-id="@request.Request_Id">
+                <div class="row request">
+                    <div class="col-9">
+                        <div class="upper-case">@Html.DisplayFor(modelItem => item.RequestStatus.Status)</div>
+                        <div><b>@Html.DisplayNameFor(model => model.Requests[0].ApplicationUser.Name): </b> @Html.DisplayFor(modelItem => item.ApplicationUser.Name)</div>
+                        <div><b>@Html.DisplayNameFor(model => model.Requests[0].RequestType.Type): </b>@Html.DisplayFor(modelItem => item.RequestType.Type)</div>
+                        <div><b>@Html.DisplayNameFor(model => model.Requests[0].RequestType.Reason): </b>@Html.DisplayFor(modelItem => item.RequestType.Reason)</div>
+                        <div><b>Dates: </b>@String.Format("{0:ddd d MMMM}", item.Start_Date) - @String.Format("{0:ddd d MMMM}", item.End_Date)</div>
+                    </div>
+                    @if (item.RequestStatus.Status != "approved" && item.RequestStatus.Status != "rejected")
+                    {
+                        <div class="col-3 text-center my-auto">
+                            <div>
+                                <a asp-page="Requests/Edit" class="btn btn-outline-primary btn-sm" asp-route-id="@item.Request_Id">
                                     Edit
                                 </a>
-                                <a asp-page="Requests/Delete" class="btn btn-outline-primary btn-sm" asp-route-id="@request.Request_Id">
+                                <a asp-page="Requests/Delete" class="btn btn-outline-primary btn-sm" asp-route-id="@item.Request_Id">
                                     Cancel
                                 </a>
                             </div>
+                        </div>
                         }
-                    </div>
+                </div>
                 }
-            }
         </div>
     </div>
 

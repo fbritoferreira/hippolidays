@@ -16,7 +16,7 @@ namespace hippolidays.Pages
     [Authorize(Roles = "Manager")]
     public class ApproveModel : PageModel
     {
-        private static List<Request>? Requests;
+        public IList<Request> Requests { get; set; } = default!;
 
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -46,7 +46,6 @@ namespace hippolidays.Pages
             Requests = await query.ToListAsync();
 
             viewData.Add("filter", filter);
-            viewData.Add("requests", Requests);
 
         }
         
@@ -55,14 +54,20 @@ namespace hippolidays.Pages
             var result = _context.Request.SingleOrDefault(b => b.Request_Id == id);
             if (result != null)
             {
-               if (result.ApplicationUser.HolidaysRemaining <= 0)
+               if (result.ApplicationUser?.HolidaysRemaining <= 0)
                 {
                     return Page();
                 }
-
-               result.RequestStatus.Status = status;
-               result.ApplicationUser.HolidaysRemaining = result.ApplicationUser.HolidaysRemaining - (result.End_Date - result.Start_Date).Days;
-               await _context.SaveChangesAsync();
+               if (result.RequestStatus != null && result.ApplicationUser!= null)
+                {
+                    result.RequestStatus.Status = status;
+                    result.RequestStatus.ActionDate = DateTime.Today.Date;
+                    if (status == "approved")
+                    {
+                        result.ApplicationUser.HolidaysRemaining = result.ApplicationUser.HolidaysRemaining - (result.End_Date - result.Start_Date).Days - 1;
+                    }
+                    await _context.SaveChangesAsync();
+                }           
             }
             return RedirectToPage("./Approve");
         }
